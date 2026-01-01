@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>SECUREPAQ | Mi Perfil</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="../../assets/css/base.css">
+  <link rel="stylesheet" href="../../assets/css/perfil.css">
+</head>
+<body>
+
+<header class="app-header">
+  <img src="../../assets/images/logo-securepaq.svg" class="logo" alt="SECUREPAQ">
+</header>
+
+<main class="profile-wrapper">
+
+  <section class="profile-card">
+
+    <h1>Mi Perfil</h1>
+
+    <!-- INFO BÁSICA -->
+    <div class="info-box">
+      <p><strong>Usuario:</strong> Juan Pérez</p>
+      <p><strong>Departamento:</strong> 304 - Torre A</p>
+      <p><strong>Rol:</strong> Residente</p>
+    </div>
+
+    <!-- DATOS DE CONTACTO -->
+    <h2>Datos de contacto</h2>
+
+    <div class="field">
+      <label>Correo electrónico</label>
+      <input id="email" type="email" value="juan.perez@ejemplo.com">
+      <small class="error hidden" id="email-error">
+        Ingresa un correo electrónico válido (ej: usuario@dominio.com)
+      </small>
+    </div>
+
+    <div class="field">
+      <label>Teléfono</label>
+      <input id="telefono" type="text" value="+56912345678">
+      <small class="error hidden" id="phone-error">
+        Ingresa un número de teléfono válido (ej: +56912345678)
+      </small>
+    </div>
+
+    <!-- CAMBIO CONTRASEÑA -->
+    <h2>Cambiar contraseña</h2>
+
+    <div class="field">
+      <label>Contraseña actual</label>
+      <input id="currentPassword" type="password">
+    </div>
+
+    <div class="field">
+      <label>Nueva contraseña</label>
+      <input id="newPassword" type="password">
+      <small class="hint">
+        Mínimo 8 caracteres, incluir mayúsculas, minúsculas y números
+      </small>
+      <small class="error hidden" id="password-strength-error">
+        La contraseña no cumple los requisitos mínimos de seguridad
+      </small>
+    </div>
+
+    <div class="field">
+      <label>Confirmar nueva contraseña</label>
+      <input id="confirmPassword" type="password">
+      <small class="error hidden" id="password-match-error">
+        Las contraseñas no coinciden
+      </small>
+    </div>
+
+    <div class="note">
+      Deja estos campos vacíos si no deseas cambiar tu contraseña
+    </div>
+
+    <!-- BOTONES -->
+    <div class="actions">
+      <button class="btn-secondary">Cancelar</button>
+      <button class="btn-primary" id="saveBtn">Guardar cambios</button>
+    </div>
+
+  </section>
+
+</main>
+
+<script src="../../js/pages/perfil/mi-perfil.js"></script>
+</body>
+</html>

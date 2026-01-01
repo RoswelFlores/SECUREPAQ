@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>SECUREPAQ | Conserjería</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="../../assets/css/base.css">
+  <link rel="stylesheet" href="../../assets/css/conserjeria.css">
+</head>
+<body>
+
+<header class="app-header">
+  <div class="header-left">
+    <img src="../../assets/images/logo_securepaq.png" class="logo" alt="SECUREPAQ">
+    <span class="module">Conserjería</span>
+  </div>
+
+  <div class="header-right">
+    <strong>Carlos Ramírez</strong>
+    <span>Conserje | Turno Mañana</span>
+  </div>
+</header>
+
+<main class="dashboard-wrapper">
+
+  <!-- KPIs -->
+  <section class="kpi-grid">
+    <div class="kpi-card">
+      <span class="kpi-title">Pendientes hoy</span>
+      <span class="kpi-value">12</span>
+    </div>
+
+    <div class="kpi-card">
+      <span class="kpi-title">Retiradas hoy</span>
+      <span class="kpi-value">8</span>
+    </div>
+
+    <div class="kpi-actions">
+      <a href="registrar-encomienda.html" class="btn-primary">Registrar encomienda</a>
+      <button class="btn-secondary">Retiro</button>
+    </div>
+  </section>
+
+  <!-- LISTADO -->
+  <section class="table-section">
+    <h2>Listado de encomiendas</h2>
+
+    <div class="table-wrapper">
+      <table class="data-table">
+      <thead>
+        <tr>
+          <th>OTP</th>
+          <th>Tracking</th>
+          <th>Courier</th>
+          <th>Residente</th>
+          <th>Depto</th>
+          <th>Recepción</th>
+          <th>Retiro</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+
+      <tbody id="tableBody">
+        <!-- Render JS -->
+      </tbody>
+      </table>
+    </div>
+
+    <div id="emptyState" class="empty hidden">
+      No existen encomiendas registradas en el sistema.
+    </div>
+  </section>
+
+</main>
+
+<script src="../../js/pages/conserjeria/home.js"></script>
+</body>
+</html>

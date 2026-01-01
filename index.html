@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>SECUREPAQ | Acceso</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/login.css">
+</head>
+<body>
+
+<main class="auth-wrapper">
+
+  <section class="auth-card">
+
+    <header class="auth-header">
+      <img src="assets/images/logo_securepaq.png" alt="SECUREPAQ">
+      <h1>Bienvenido a SECUREPAQ</h1>
+      <p>Seguridad y trazabilidad de encomiendas</p>
+    </header>
+
+    <div id="error-box" class="alert error hidden">
+      Credenciales incorrectas. Inténtalo nuevamente.
+    </div>
+
+    <form id="login-form" class="auth-form">
+      <div class="field">
+        <label>Correo electrónico</label>
+        <input type="email" placeholder="usuario@ejemplo.com" required>
+      </div>
+
+      <div class="field">
+        <label>Contraseña</label>
+        <input type="password" placeholder="••••••••" required>
+      </div>
+
+      <button class="btn-primary">Ingresar</button>
+
+      <button type="button" id="show-recovery" class="link-btn">
+        ¿Olvidaste tu contraseña?
+      </button>
+    </form>
+
+    <!-- RECUPERACIÓN -->
+    <section id="recovery" class="recovery hidden">
+      <h2>Recuperar acceso</h2>
+
+      <div class="field">
+        <label>Correo registrado</label>
+        <input type="email" placeholder="correo@ejemplo.com">
+      </div>
+
+      <button class="btn-secondary">Enviar enlace</button>
+
+      <button type="button" id="back-login" class="link-btn">
+        Volver al inicio
+      </button>
+    </section>
+
+    <footer class="auth-footer">
+      <a href="pages/legal/privacidad.html">Privacidad</a>
+      <span>•</span>
+      <a href="pages/legal/terminos.html">Términos</a>
+    </footer>
+
+
+  </section>
+
+</main>
+
+<script src="js/auth/login.js"></script>
+</body>
+</html>

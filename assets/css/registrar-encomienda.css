@@ -1,0 +1,211 @@
+.form-wrapper {
+  background: #f4f6f9;
+  padding: 32px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Ajustar tamaño del logo en esta página */
+.app-header .logo {
+  width: 120px;
+  height: auto;
+}
+
+/* Header: centrar logo y posicionar el enlace volver a la izquierda */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: #ffffff;
+  padding: 12px 20px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.04);
+}
+
+.app-header .logo {
+  width: 120px;
+  height: auto;
+}
+
+/* Estilo base para enlaces 'volver' usados en contenido */
+.back-link {
+  color: #374151;
+  text-decoration: none;
+  background: transparent;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(16,24,40,.04);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+}
+.back-link:hover {
+  background: rgba(0,0,0,.02);
+}
+
+/* Posicionar específicamente el back-link dentro del header */
+.app-header .back-link {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.form-card {
+  background: white;
+  max-width: 760px;
+  width: 100%;
+  padding: 32px;
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(0,0,0,.06);
+}
+
+h1 {
+  margin-bottom: 24px;
+}
+
+h2 {
+  margin-top: 28px;
+  font-size: 1.1rem;
+}
+
+.field {
+  margin-top: 16px;
+}
+
+label span {
+  color: #dc2626;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 13px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+textarea {
+  resize: none;
+  height: 90px;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.error {
+  color: #b91c1c;
+  font-size: .75rem;
+  margin-top: 6px;
+}
+
+.hint {
+  font-size: .75rem;
+  color: #6b7280;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.btn-primary {
+  background: #0a4da3;
+  color: white;
+  border: none;
+  padding: 14px 22px;
+  border-radius: 14px;
+}
+
+.btn-secondary {
+  background: #e5e7eb;
+  border: none;
+  padding: 14px 22px;
+  border-radius: 14px;
+}
+
+.confirmacion {
+  margin-top: 32px;
+  background: #f0fdf4;
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.otp-box {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #166534;
+  background: #dcfce7;
+  padding: 12px;
+  border-radius: 12px;
+  width: fit-content;
+}
+
+/* Confirmación: detalles de la encomienda */
+.confirmacion .otp-wrap {
+  text-align: center;
+  margin-bottom: 18px;
+}
+.confirmacion .otp-label {
+  color: #6b7280;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.confirmacion .otp-expires {
+  color: #6b7280;
+  margin-top: 8px;
+}
+
+.confirmacion .details {
+  margin-top: 10px;
+  border-top: 1px solid #e5e7eb;
+}
+.confirmacion .details-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+.confirmacion .details-row .label {
+  color: #6b7280;
+  font-weight: 700;
+}
+.confirmacion .details-row .value {
+  color: #111827;
+  text-align: right;
+}
+
+.confirm-actions {
+  margin-top: 20px;
+}
+.confirm-actions .btn-primary {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 14px 0;
+}
+
+/* estilo para el back-link dentro de la confirmación (aparece abajo) */
+.confirm-actions .back-link-inline {
+  display: block;
+  margin-top: 12px;
+  text-align: center;
+  color: #374151;
+  text-decoration: none;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .form-wrapper {
+    padding: 16px;
+  }
+}

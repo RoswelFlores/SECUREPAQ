@@ -1,0 +1,25 @@
+:root {
+  --primary: #0A4DA3;
+  --secondary: #FF8A00;
+  --bg: #F4F6F9;
+  --card: #FFFFFF;
+  --text: #1F2937;
+  --muted: #6B7280;
+  --border: #E5E7EB;
+  --error: #DC2626;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: Inter, Segoe UI, Roboto, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.hidden {
+  display: none;
+}

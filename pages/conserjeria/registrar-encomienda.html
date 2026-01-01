@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>SECUREPAQ | Registrar Encomienda</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="../../assets/css/base.css">
+  <link rel="stylesheet" href="../../assets/css/registrar-encomienda.css">
+</head>
+<body>
+
+<header class="app-header">
+  <img src="../../assets/images/logo_securepaq.png" class="logo" alt="SECUREPAQ">
+  <a href="home.html" class="back-link">← Volver</a>
+</header>
+
+<main class="form-wrapper">
+
+  <section class="form-card">
+
+    <h1>Registrar encomienda</h1>
+
+    <!-- =========================
+         DATOS RESIDENTE
+    ========================== -->
+    <h2>Datos del residente</h2>
+
+    <div class="field">
+      <label>Residente <span>*</span></label>
+      <input id="residente" placeholder="Comienza a escribir para buscar">
+      <small class="error hidden" id="residente-error">Selecciona un residente válido</small>
+    </div>
+
+    <div class="grid-2">
+      <div class="field">
+        <label>RUT</label>
+        <input id="rut" disabled>
+      </div>
+
+      <div class="field">
+        <label>Depto</label>
+        <input id="depto" disabled>
+      </div>
+    </div>
+
+    <!-- =========================
+         DATOS ENCOMIENDA
+    ========================== -->
+    <h2>Datos de la encomienda</h2>
+
+    <div class="field">
+      <label>Courier <span>*</span></label>
+      <select id="courier">
+        <option value="">Seleccionar...</option>
+        <option>FedEx</option>
+        <option>DHL Express</option>
+        <option>Starken</option>
+        <option>Correos de Chile</option>
+        <option>Otro</option>
+      </select>
+      <small class="error hidden" id="courier-error">Selecciona un courier</small>
+    </div>
+
+    <div class="field">
+      <label>Número de tracking <span>*</span></label>
+      <input id="tracking" placeholder="Ej: FDX-8829-4421-MX">
+      <small class="error hidden" id="tracking-error">Ingresa un tracking válido</small>
+    </div>
+
+    <div class="grid-2">
+      <div class="field">
+        <label>Tipo de paquete <span>*</span></label>
+        <select id="tipo">
+          <option value="">Seleccionar...</option>
+          <option>Documento</option>
+          <option>Caja</option>
+          <option>Sobre</option>
+          <option>Otro</option>
+        </select>
+        <small class="error hidden" id="tipo-error">Campo obligatorio</small>
+      </div>
+
+      <div class="field">
+        <label>Tamaño <span>*</span></label>
+        <select id="tamano">
+          <option value="">Seleccionar...</option>
+          <option>Pequeño</option>
+          <option>Mediano</option>
+          <option>Grande</option>
+        </select>
+        <small class="error hidden" id="tamano-error">Campo obligatorio</small>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Descripción (opcional)</label>
+      <textarea id="descripcion" maxlength="200"
+        placeholder="Descripción adicional del contenido..."></textarea>
+      <small class="hint"><span id="count">0</span>/200 caracteres</small>
+    </div>
+
+    <!-- =========================
+         RECEPCIÓN
+    ========================== -->
+    <h2>Datos de recepción</h2>
+
+    <div class="field">
+      <label>Receptor en conserjería</label>
+      <input value="Carlos Ramírez" disabled>
+    </div>
+
+    <div class="grid-2">
+      <div class="field">
+        <label>Fecha recepción</label>
+        <input value="27/12/2025" disabled>
+      </div>
+      <div class="field">
+        <label>Hora recepción</label>
+        <input value="14:30" disabled>
+      </div>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="actions">
+      <button class="btn-secondary">Cancelar</button>
+      <button class="btn-primary" id="guardar">Guardar</button>
+    </div>
+
+    <!-- =========================
+         CONFIRMACIÓN OTP
+    ========================== -->
+    <section id="confirmacion" class="confirmacion hidden">
+      <h2>Encomienda registrada</h2>
+
+      <div class="otp-wrap">
+        <p class="otp-label">CÓDIGO OTP GENERADO</p>
+        <div class="otp-box">743921</div>
+        <p class="otp-expires"><strong>Expira:</strong> 27/12/2025 18:30</p>
+      </div>
+
+      <div class="details">
+        <div class="details-row">
+          <div class="label">Tracking:</div>
+          <div class="value">#TRK-458923</div>
+        </div>
+
+        <div class="details-row">
+          <div class="label">Residente:</div>
+          <div class="value">Juan Pérez - 304-A</div>
+        </div>
+
+        <div class="details-row">
+          <div class="label">Courier:</div>
+          <div class="value">FedEx</div>
+        </div>
+
+        <div class="details-row">
+          <div class="label">Tipo:</div>
+          <div class="value">Caja</div>
+        </div>
+
+        <div class="details-row">
+          <div class="label">Estado:</div>
+          <div class="value"><span class="status pending">PENDIENTE</span></div>
+        </div>
+      </div>
+      <div class="confirm-actions">
+        <a href="registrar-encomienda.html" class="btn-primary">Registrar nueva encomienda</a>
+        <a href="home.html" class="back-link back-link-inline">← Volver</a>
+      </div>
+    </section>
+
+  </section>
+
+</main>
+
+<script src="../../js/pages/conserjeria/registrar-encomienda.js"></script>
+</body>
+</html>
