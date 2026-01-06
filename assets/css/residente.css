@@ -1,0 +1,232 @@
+/* =========================
+   HEADER (igual al resto)
+========================= */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 32px;
+  background: #ffffff;
+  box-shadow: 0 1px 4px rgba(0,0,0,.04);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-left .logo {
+  width: 110px;
+  height: auto;
+}
+
+.module {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0a4da3;
+}
+
+.header-right {
+  text-align: right;
+  font-size: .85rem;
+  color: #374151;
+  white-space: nowrap;
+}
+
+/* =========================
+   PAGE
+========================= */
+.page {
+  background: #f4f6f9;
+  min-height: calc(100vh - 70px);
+  padding: 24px 28px;
+}
+
+/* =========================
+   TABS
+========================= */
+.tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(0,0,0,.06);
+  margin-bottom: 16px;
+}
+
+.tab {
+  padding: 14px 16px;
+  border: none;
+  background: #ffffff;
+  cursor: pointer;
+  font-weight: 700;
+  color: #374151;
+  transition: background .15s ease, color .15s ease;
+}
+
+.tab.active {
+  background: #eef4ff;
+  color: #0a4da3;
+}
+
+/* =========================
+   CONTENT + CARDS
+========================= */
+.content {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 18px;
+  box-shadow: 0 12px 30px rgba(0,0,0,.06);
+}
+
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.card {
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 16px;
+  background: #ffffff;
+}
+
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.courier {
+  font-weight: 800;
+  letter-spacing: .2px;
+}
+
+.tag {
+  font-size: .75rem;
+  color: #6b7280;
+  white-space: nowrap;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 10px 14px;
+  font-size: .9rem;
+  color: #111827;
+  margin-bottom: 12px;
+}
+
+.grid .label {
+  color: #6b7280;
+  font-weight: 600;
+}
+
+.grid .value {
+  font-weight: 600;
+}
+
+/* OTP block (pendientes) */
+.otp-box {
+  border: 2px dashed #c7d2fe;
+  background: #f8fafc;
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.otp-code {
+  font-size: 1.4rem;
+  font-weight: 900;
+  letter-spacing: 8px;
+  color: #0a4da3;
+}
+
+.otp-meta {
+  font-size: .78rem;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: .8rem;
+  border: 2px solid #0a4da3;
+  background: #ffffff;
+  color: #0a4da3;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all .15s ease;
+  white-space: nowrap;
+}
+
+.btn:hover {
+  background: #0a4da3;
+  color: #ffffff;
+}
+
+/* Empty */
+.empty {
+  text-align: center;
+  color: #6b7280;
+  padding: 18px;
+}
+
+.hidden { display: none; }
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 700px) {
+  .page {
+    padding: 16px;
+  }
+
+  .app-header {
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px;
+  }
+
+  .header-right {
+    text-align: center;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .otp-box {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .otp-code {
+    letter-spacing: 6px;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}

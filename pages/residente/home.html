@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>SECUREPAQ | Residente</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="../../assets/css/base.css">
+  <link rel="stylesheet" href="../../assets/css/residente.css?v=1">
+</head>
+<body>
+
+<header class="app-header">
+  <div class="header-left">
+    <img src="../../assets/images/logo_securepaq.png" class="logo" alt="SECUREPAQ">
+    <span class="module">Residente</span>
+  </div>
+
+  <div class="header-right">
+    <strong>Juan Pérez</strong>
+    <span>Depto. 304 | Torre A</span>
+  </div>
+</header>
+
+<main class="page">
+
+  <section class="tabs">
+    <button class="tab active" data-tab="pendientes">Pendientes</button>
+    <button class="tab" data-tab="historial">Historial</button>
+  </section>
+
+  <section class="content">
+    <div id="pendientes" class="tab-panel active">
+      <!-- fallback visible si JS no corre -->
+      <div class="empty" id="jsStatus">Cargando datos...</div>
+
+      <div id="pendientesList" class="cards"></div>
+      <div id="pendientesEmpty" class="empty hidden">
+        No tienes encomiendas pendientes por retirar.
+      </div>
+    </div>
+
+    <div id="historial" class="tab-panel">
+      <div id="historialList" class="cards"></div>
+      <div id="historialEmpty" class="empty hidden">
+        Aún no tienes retiros registrados.
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="../../js/residente/residente.js"></script>
+</body>
+</html>
