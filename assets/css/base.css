@@ -18,8 +18,30 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
 }
 
 .hidden {
   display: none;
+}
+
+/* Footer base */
+.app-footer {
+  margin-top: 32px;
+  padding: 24px 32px;
+  text-align: center;
+  color: var(--muted);
+  font-size: .9rem;
+  font-weight: 600;
+  line-height: 1.6;
+  letter-spacing: .2px;
+  border-top: 1px solid var(--border);
+  background: linear-gradient(180deg, #ffffff 0%, #f7f9fb 100%);
+  box-shadow: 0 -6px 22px rgba(0,0,0,.06);
 }
