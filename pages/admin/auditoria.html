@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>SECUREPAQ | Auditoria</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="../../assets/css/base.css" />
+  <link rel="stylesheet" href="../../assets/css/admin-auditoria.css?v=1" />
+</head>
+
+<body>
+<header class="app-header">
+  <div class="header-left">
+    <img src="../../assets/images/logo_securepaq.png" class="logo" alt="SECUREPAQ">
+    <div class="module-row">
+      <span class="module">Administrador</span>
+      <span class="module-sub">Auditoria</span>
+    </div>
+  </div>
+
+  <div class="header-right">
+    <a href="home.html" class="btn btn-muted" aria-label="Volver al panel">Volver</a>
+    <div class="user-info">
+      <strong>Maria Lopez</strong>
+      <span>Administrador</span>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+  <section class="content">
+    <div class="section-head">
+      <h1 class="title">Auditoria</h1>
+      <p class="subtitle">Registro de todas las acciones realizadas en el sistema.</p>
+    </div>
+
+    <div class="table-wrap" role="region" aria-label="Tabla de auditoria">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Fecha/Hora</th>
+            <th>Usuario</th>
+            <th>Rol</th>
+            <th>Accion</th>
+            <th>Detalle</th>
+          </tr>
+        </thead>
+        <tbody id="auditoriaTbody">
+          <!-- render JS -->
+        </tbody>
+      </table>
+
+      <div id="auditoriaEmpty" class="empty hidden">
+        No hay registros de auditoria.
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="../../js/pages/admin/auditoria.js"></script>
+</body>
+</html>
