@@ -138,7 +138,7 @@
 .table-wrap {
   border: 1px solid var(--border);
   border-radius: 16px;
-  overflow: hidden;
+  overflow-x: auto;
   background: var(--card);
   box-shadow: 0 10px 24px rgba(0,0,0,.05);
 }
@@ -147,6 +147,7 @@
   width: 100%;
   border-collapse: collapse;
   font-size: .9rem;
+  min-width: 760px;
 }
 
 .table thead th {
@@ -170,12 +171,12 @@
 }
 
 .th-actions {
-  width: 240px;
+  min-width: 240px;
 }
 
 .actions {
   display: flex;
-  gap: 8px;
+  gap: 10px 8px;
   flex-wrap: wrap;
   justify-content: flex-start;
 }
@@ -190,6 +191,8 @@
   color: var(--primary);
   cursor: pointer;
   transition: all .15s ease;
+  min-width: 96px;
+  text-align: center;
 }
 
 .btn-sm:hover {

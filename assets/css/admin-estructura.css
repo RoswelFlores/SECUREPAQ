@@ -69,6 +69,7 @@
   padding: 22px;
   box-shadow: 0 12px 30px rgba(0,0,0,.06);
   border: 1px solid var(--border);
+  overflow: hidden;
 }
 
 .title {
@@ -280,5 +281,9 @@ input:focus, select:focus {
 
   .grid-2 {
     grid-template-columns: 1fr;
+  }
+
+  .content {
+    padding: 18px;
   }
 }
