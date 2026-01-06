@@ -110,4 +110,12 @@ input:focus {
   text-align: center;
   font-size: .75rem;
   color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.auth-footer .copyright {
+  font-size: .8rem;
+  color: var(--muted);
 }
