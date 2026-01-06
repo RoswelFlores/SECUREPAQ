@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>SECUREPAQ | Retiro de Encomienda</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="../../assets/css/base.css">
+  <link rel="stylesheet" href="../../assets/css/retiro.css">
+</head>
+<body>
+
+<header class="app-header">
+  <img src="../../assets/images/logo_securepaq.png" class="logo" alt="SECUREPAQ">
+  <a href="home.html" class="back-link">← Volver</a>
+</header>
+
+<main class="retiro-wrapper">
+
+  <section class="retiro-card">
+
+    <h1>Retiro de encomienda</h1>
+
+    <!-- ======================
+         VALIDACIÓN OTP
+    ======================= -->
+    <div class="otp-section">
+      <label>Código OTP</label>
+      <input id="otp" maxlength="6" placeholder="000000">
+      <small class="error hidden" id="otp-invalid">
+        Código OTP incorrecto
+      </small>
+      <small class="error hidden" id="otp-expired">
+        Código OTP vencido. Debe regenerar el código
+      </small>
+
+      <button class="btn-primary" id="validar">
+        Validar OTP
+      </button>
+    </div>
+
+    <!-- ======================
+         TARJETA ENCOMIENDA
+    ======================= -->
+    <section id="encomienda" class="encomienda hidden">
+      <h2>Datos de la encomienda</h2>
+
+      <div class="info-grid">
+        <div><strong>Tracking:</strong> FDX-8829-4421-MX</div>
+        <div><strong>Courier:</strong> FedEx</div>
+        <div><strong>Residente:</strong> Juan Pérez</div>
+        <div><strong>Depto:</strong> 304-A</div>
+        <div><strong>Recepción:</strong> 27/12/2025 14:30</div>
+        <div><strong>Estado:</strong> Pendiente</div>
+      </div>
+
+      <div class="field">
+        <label>Observaciones (opcional)</label>
+        <textarea id="obs" placeholder="Comentario adicional..."></textarea>
+      </div>
+
+      <button class="btn-primary" id="confirmar">
+        Confirmar retiro
+      </button>
+    </section>
+
+    <!-- ======================
+         CONFIRMACIÓN FINAL
+    ======================= -->
+    <section id="final" class="confirmacion hidden">
+      <h2>Retiro registrado</h2>
+
+      <ul>
+        <li>✔ Encomienda marcada como <strong>Retirada</strong></li>
+        <li>✔ Código OTP invalidado automáticamente</li>
+        <li>✔ Notificación enviada al correo del residente</li>
+      </ul>
+
+      <a href="home.html" class="btn-secondary">
+        Volver al listado
+      </a>
+    </section>
+
+  </section>
+
+</main>
+
+<script src="../../js/pages/conserjeria/retiro.js"></script>
+</body>
+</html>

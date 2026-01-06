@@ -1,3 +1,8 @@
+/* =========================================================
+   SECUREPAQ - CONSERJERÍA (HOME + LISTADO)
+   Archivo: conserjeria.css
+========================================================= */
+
 /* =========================
    HEADER
 ========================= */
@@ -18,6 +23,7 @@
 
 .header-left .logo {
   width: 110px;
+  height: auto;
 }
 
 .module {
@@ -34,7 +40,7 @@
 }
 
 /* =========================
-   DASHBOARD
+   LAYOUT
 ========================= */
 .dashboard-wrapper {
   padding: 28px;
@@ -42,12 +48,15 @@
   min-height: calc(100vh - 70px);
 }
 
-/* KPIs + ACTIONS */
+/* =========================
+   KPI GRID + ACTIONS
+========================= */
 .kpi-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
   margin-bottom: 28px;
+  align-items: stretch;
 }
 
 .kpi-card {
@@ -58,6 +67,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  min-height: 92px;
 }
 
 .kpi-title {
@@ -71,20 +81,21 @@
   color: #111827;
 }
 
-/* ACTION BUTTONS */
+/* Acciones del dashboard (arriba) */
 .kpi-actions {
   display: flex;
   gap: 12px;
+  align-items: stretch;
 }
 
-.kpi-actions .btn-primary,
-.kpi-actions .btn-secondary,
-.kpi-actions a.btn-primary,
-.kpi-actions a.btn-secondary {
+/* =========================
+   BOTONES GENERALES
+========================= */
+.btn-primary,
+.btn-secondary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 170px;
   padding: 14px 18px;
   border-radius: 14px;
   font-weight: 600;
@@ -92,33 +103,41 @@
   cursor: pointer;
   transition: all .15s ease;
   text-decoration: none;
+  user-select: none;
+  border: 2px solid transparent;
 }
 
-/* Registrar encomienda */
-.kpi-actions .btn-primary {
+/* Botón principal (Registrar) */
+.btn-primary {
   background: #ffffff;
-  border: 2px solid #0a4da3;
+  border-color: #0a4da3;
   color: #0a4da3;
 }
 
-.kpi-actions .btn-primary:hover {
+.btn-primary:hover {
   background: #0a4da3;
   color: #ffffff;
 }
 
-/* Retiro */
-.kpi-actions .btn-secondary {
+/* Botón secundario (por defecto) */
+.btn-secondary {
   background: #f3f4f6;
-  border: 2px solid #d1d5db;
+  border-color: #d1d5db;
   color: #111827;
 }
 
-.kpi-actions .btn-secondary:hover {
+.btn-secondary:hover {
   background: #e5e7eb;
 }
 
+/* Tamaño recomendado para acciones del KPI */
+.kpi-actions .btn-primary,
+.kpi-actions .btn-secondary {
+  min-width: 170px;
+}
+
 /* =========================
-   TABLE
+   TABLE SECTION
 ========================= */
 .table-section {
   background: #ffffff;
@@ -129,6 +148,13 @@
 
 .table-section h2 {
   margin-bottom: 16px;
+}
+
+/* Wrapper para scroll horizontal (mobile) */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .data-table {
@@ -144,18 +170,24 @@
   font-size: 0.8rem;
   color: #6b7280;
   font-weight: 600;
+  white-space: nowrap;
 }
 
 .data-table td {
   padding: 14px 12px;
   border-bottom: 1px solid #e5e7eb;
-  /* permitir que textos largos se rompan y no expandan la tabla */
   word-break: break-word;
   overflow-wrap: anywhere;
 }
 
 .data-table tr:last-child td {
   border-bottom: none;
+}
+
+/* OTP estilo */
+.otp {
+  font-weight: 700;
+  color: #0a4da3;
 }
 
 /* STATUS */
@@ -166,7 +198,6 @@
   font-weight: 700;
   display: inline-block;
   white-space: nowrap;
-  overflow-wrap: normal;
 }
 
 .status.pending {
@@ -179,25 +210,55 @@
   color: #166534;
 }
 
-.otp {
-  font-weight: 600;
-  color: #0a4da3;
-}
-
+/* Empty state */
 .empty {
   text-align: center;
   margin-top: 20px;
   color: #6b7280;
 }
 
-/* Envoltorio para permitir scroll horizontal sin romper el layout */
-.table-wrapper {
-  width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+/* =========================
+   BOTÓN "RETIRO" DENTRO DE LA TABLA
+   (Más específico para vencer estilos globales de <a>)
+========================= */
+.data-table td:last-child {
+  white-space: nowrap;
 }
 
-/* Ajustes intermedios: reducir padding para evitar overflow en pantallas estrechas */
+.data-table td:last-child a.btn-secondary {
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-color: #0a4da3;
+  color: #0a4da3;
+  background: #ffffff;
+  text-decoration: none;
+  line-height: 1;
+}
+
+.data-table td:last-child a.btn-secondary:hover {
+  background: #0a4da3;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+/* Ajustes intermedios */
+@media (max-width: 1024px) {
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .kpi-actions {
+    grid-column: span 2;
+    justify-content: flex-start;
+  }
+}
+
 @media (max-width: 900px) {
   .data-table th,
   .data-table td {
@@ -208,25 +269,10 @@
     padding: 16px;
   }
 
-  .kpi-actions button {
+  .kpi-actions .btn-primary,
+  .kpi-actions .btn-secondary {
     min-width: 140px;
     padding: 12px 14px;
-  }
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-
-/* Tablets */
-@media (max-width: 1024px) {
-  .kpi-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .kpi-actions {
-    grid-column: span 2;
-    justify-content: flex-start;
   }
 }
 
@@ -254,11 +300,42 @@
     flex-direction: column;
   }
 
-  .kpi-actions button {
+  .kpi-actions .btn-primary,
+  .kpi-actions .btn-secondary {
     width: 100%;
+    min-width: unset;
   }
 
   .data-table {
     font-size: 0.8rem;
   }
+}
+/* =========================
+   FIX FINAL: Link "Retiro" como botón
+   (por si base.css fuerza estilos en <a>)
+========================= */
+.data-table td:last-child a.btn-secondary {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  padding: 8px 14px !important;
+  border-radius: 10px !important;
+
+  border: 2px solid #0a4da3 !important;
+  background: #ffffff !important;
+
+  color: #0a4da3 !important;
+  text-decoration: none !important;
+
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+}
+
+.data-table td:last-child a.btn-secondary:hover {
+  background: #0a4da3 !important;
+  color: #ffffff !important;
+  transform: translateY(-1px);
 }
