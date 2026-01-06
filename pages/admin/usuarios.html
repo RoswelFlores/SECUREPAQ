@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>SECUREPAQ | Gestion de Usuarios</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="../../assets/css/base.css" />
+  <link rel="stylesheet" href="../../assets/css/admin-usuarios.css?v=1" />
+</head>
+
+<body>
+
+<header class="app-header">
+  <div class="header-left">
+    <img src="../../assets/images/logo_securepaq.png" class="logo" alt="SECUREPAQ">
+    <div class="module-row">
+      <span class="module">Administrador</span>
+      <span class="module-sub">Gestion de usuarios</span>
+    </div>
+  </div>
+
+  <div class="header-right">
+    <a href="home.html" class="btn btn-muted" aria-label="Volver al panel">Volver</a>
+    <div class="user-info">
+      <strong>Maria Lopez</strong>
+      <span>Administrador</span>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+
+  <section class="content">
+
+    <div class="topbar">
+      <div>
+        <h1 class="title">Gestion de usuarios</h1>
+        <p class="subtitle">Crea y administra cuentas, roles y estado de acceso.</p>
+      </div>
+
+      <button id="btnCrear" class="btn">Crear usuario</button>
+    </div>
+
+    <!-- Tabla -->
+    <div class="table-wrap" role="region" aria-label="Tabla de usuarios">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>RUT</th>
+            <th>Rol</th>
+            <th>Depto</th>
+            <th>Estado</th>
+            <th class="th-actions">Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="usuariosTbody">
+          <!-- Render JS -->
+        </tbody>
+      </table>
+
+      <div id="tablaEmpty" class="empty hidden">
+        No hay usuarios para mostrar.
+      </div>
+    </div>
+
+  </section>
+
+  <!-- MODAL (Crear / Editar) -->
+  <div id="modalOverlay" class="modal-overlay hidden" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-head">
+        <h2 id="modalTitle" class="modal-title">Crear usuario</h2>
+        <button id="btnCloseModal" class="icon-btn" aria-label="Cerrar">x</button>
+      </div>
+
+      <form id="formUsuario" class="modal-body">
+        <!-- Datos basicos -->
+        <div class="block">
+          <div class="block-title">Datos basicos</div>
+
+          <label class="field">
+            <span class="field-label">Nombre completo <span class="req">*</span></span>
+            <input id="nombre" type="text" placeholder="Nombre completo del usuario" required />
+          </label>
+
+          <div class="grid-2">
+            <label class="field">
+              <span class="field-label">RUT <span class="req">*</span></span>
+              <input id="rut" type="text" placeholder="12.345.678-9" required />
+            </label>
+
+            <label class="field">
+              <span class="field-label">Telefono <span class="req">*</span></span>
+              <input id="telefono" type="tel" placeholder="+56912345678" required />
+            </label>
+          </div>
+        </div>
+
+        <!-- Datos de acceso -->
+        <div class="block">
+          <div class="block-title">Datos de acceso</div>
+
+          <label class="field">
+            <span class="field-label">Email <span class="req">*</span></span>
+            <input id="email" type="email" placeholder="usuario@ejemplo.com" required />
+          </label>
+
+          <label class="field">
+            <span class="field-label">Rol <span class="req">*</span></span>
+            <select id="rol" required>
+              <option value="Residente">Residente</option>
+              <option value="Conserjeria">Conserjeria</option>
+              <option value="Administrador">Administrador</option>
+            </select>
+          </label>
+        </div>
+
+        <!-- Asignacion de departamento (solo Residente) -->
+        <div id="deptoSection" class="block depto-block">
+          <div class="block-title">Asignacion de departamento</div>
+
+          <div class="grid-2">
+            <label class="field">
+              <span class="field-label">Torre/Edificio <span class="req">*</span></span>
+              <select id="torre">
+                <option value="Torre A">Torre A</option>
+                <option value="Torre B">Torre B</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span class="field-label">Departamento <span class="req">*</span></span>
+              <input id="depto" type="text" placeholder="Ej: 304" />
+            </label>
+          </div>
+
+          <div class="hint">
+            Esta seccion aparece solo cuando el rol es <strong>Residente</strong>.
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="modal-foot">
+          <button type="button" id="btnCancelar" class="btn btn-muted">Cancelar</button>
+          <button type="submit" class="btn">Guardar</button>
+        </div>
+
+        <input type="hidden" id="editId" value="">
+      </form>
+    </div>
+  </div>
+
+</main>
+
+<script src="../../js/pages/admin/usuarios.js"></script>
+</body>
+</html>
