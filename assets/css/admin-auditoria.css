@@ -106,7 +106,7 @@
   cursor: pointer;
   transition: all .15s ease;
   white-space: nowrap;
-}
+}s
 
 .btn:hover {
   background: #0a4da3;
