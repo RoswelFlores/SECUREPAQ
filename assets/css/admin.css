@@ -57,6 +57,39 @@
   gap: 4px;
 }
 
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 16px;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: .9rem;
+  border: 2px solid #0a4da3;
+  background: #ffffff;
+  color: #0a4da3;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all .15s ease;
+  white-space: nowrap;
+}
+
+.btn:hover {
+  background: #0a4da3;
+  color: #ffffff;
+}
+
+.btn.btn-muted {
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.btn.btn-muted:hover {
+  background: #111827;
+  border-color: #111827;
+  color: #fff;
+}
+
 .admin-content {
   display: flex;
   flex-direction: column;

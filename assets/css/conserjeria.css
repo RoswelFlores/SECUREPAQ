@@ -37,6 +37,9 @@
   font-size: .85rem;
   color: #374151;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 /* =========================
@@ -274,6 +277,27 @@
     min-width: 140px;
     padding: 12px 14px;
   }
+}
+
+/* Boton logout */
+.btn.btn-muted {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: .8rem;
+  border: 2px solid #d1d5db;
+  background: #ffffff;
+  color: #1f2937;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+
+.btn.btn-muted:hover {
+  background: #f3f4f6;
 }
 
 /* Mobile */
