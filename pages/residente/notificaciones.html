@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>SECUREPAQ | Notificaciones</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="../../assets/css/base.css">
+  <link rel="stylesheet" href="../../assets/css/notificaciones.css?v=1">
+</head>
+<body>
+
+<header class="app-header">
+  <div class="header-left">
+    <img src="../../assets/images/logo_securepaq.png" class="logo" alt="SECUREPAQ">
+    <span class="module">Notificaciones</span>
+  </div>
+
+  <div class="header-right">
+    <div class="user">
+      <strong>Juan Pérez</strong>
+      <span>Depto. 304 | Torre A</span>
+    </div>
+
+    <a class="btn-back" href="home.html">Volver</a>
+  </div>
+</header>
+
+<main class="page">
+  <section class="panel">
+    <div class="panel-head">
+      <h1>Notificaciones</h1>
+      <p>Comunicaciones asociadas a tus encomiendas.</p>
+    </div>
+
+    <!-- Estado inicial -->
+    <div id="jsStatus" class="empty">Cargando notificaciones...</div>
+
+    <!-- Lista -->
+    <div id="notificationsList" class="notifications"></div>
+
+    <!-- Estado vacío -->
+    <div id="emptyState" class="empty hidden">
+      No tienes notificaciones por el momento.
+    </div>
+  </section>
+</main>
+
+<script src="../../js/residente/notificaciones.js"></script>
+</body>
+</html>

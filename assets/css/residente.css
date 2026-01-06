@@ -27,11 +27,27 @@
   color: #0a4da3;
 }
 
+.module-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .header-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
   text-align: right;
   font-size: .85rem;
   color: #374151;
   white-space: nowrap;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
 }
 
 /* =========================
@@ -210,7 +226,18 @@
   }
 
   .header-right {
+    flex-direction: column;
+    align-items: center;
     text-align: center;
+  }
+
+  .user-info {
+    align-items: center;
+  }
+
+  .module-row {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .grid {
