@@ -73,9 +73,6 @@
       const item = document.createElement("article");
       item.className = "notif";
 
-      // 🔜 Por ahora no existe pantalla detalle. Dejamos la ruta lista.
-      const detailHref = `detalle-encomienda.html?tracking=${encodeURIComponent(n.tracking)}`;
-
       item.innerHTML = `
         <div class="notif-top">
           <div class="type ${typeClass(n.tipo)}">${typeText(n.tipo)}</div>
@@ -86,10 +83,6 @@
           <h3>${n.titulo}</h3>
           <p>${n.descripcion}</p>
           <div class="tracking">Tracking: <span>${n.tracking}</span></div>
-        </div>
-
-        <div class="notif-actions">
-          <a class="btn-detail" href="${detailHref}">Ver detalle</a>
         </div>
       `;
 

@@ -174,38 +174,6 @@
   font-weight: 800;
 }
 
-/* =========================
-   ACCIONES
-========================= */
-.notif-actions {
-  margin-top: 12px;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.btn-detail {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 14px;
-  border-radius: 12px;
-  font-weight: 900;
-  font-size: .8rem;
-  border: 2px solid #0a4da3;
-  background: #ffffff;
-  color: #0a4da3;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all .15s ease;
-  white-space: nowrap;
-}
-
-.btn-detail:hover {
-  background: #0a4da3;
-  color: #ffffff;
-  transform: translateY(-1px);
-}
-
 /* Empty / status */
 .empty {
   text-align: center;
