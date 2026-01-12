@@ -8,9 +8,9 @@
 
   // Mock inicial
   let deptos = [
-    { numero: "101", piso: "1", cupo: "1", estado: "Activo" },
-    { numero: "102", piso: "1", cupo: "1", estado: "Activo" },
-    { numero: "201", piso: "2", cupo: "1", estado: "Activo" },
+    { numero: "101", piso: "1" },
+    { numero: "102", piso: "1" },
+    { numero: "201", piso: "2" },
   ];
 
   function buildDeptoCard(index, data) {
@@ -36,20 +36,6 @@
         </label>
       </div>
 
-      <div class="grid-2">
-        <label class="field">
-          <span class="field-label">Cupo resid. <span class="req">*</span></span>
-          <input name="cupo" type="number" min="1" value="${data.cupo || ""}" required />
-        </label>
-
-        <label class="field">
-          <span class="field-label">Estado <span class="req">*</span></span>
-          <select name="estado" required>
-            <option value="Activo" ${data.estado === "Activo" ? "selected" : ""}>Activo</option>
-            <option value="Inactivo" ${data.estado === "Inactivo" ? "selected" : ""}>Inactivo</option>
-          </select>
-        </label>
-      </div>
     `;
 
     card.querySelector(".btn-sm-remove").addEventListener("click", () => {
@@ -76,7 +62,7 @@
   }
 
   function addDepto() {
-    deptos.push({ numero: "", piso: "1", cupo: "1", estado: "Activo" });
+    deptos.push({ numero: "", piso: "1" });
     renderDeptos();
   }
 
@@ -90,9 +76,7 @@
     return cards.map((card) => {
       const numero = card.querySelector('input[name="numero"]').value.trim();
       const piso = card.querySelector('input[name="piso"]').value.trim();
-      const cupo = card.querySelector('input[name="cupo"]').value.trim();
-      const estado = card.querySelector('select[name="estado"]').value;
-      return { numero, piso, cupo, estado };
+      return { numero, piso };
     });
   }
 
@@ -116,7 +100,6 @@
         ciudad: document.getElementById("edificioCiudad").value.trim(),
         telefono: document.getElementById("edificioTelefono").value.trim(),
         email: document.getElementById("edificioEmail").value.trim(),
-        estado: document.getElementById("edificioEstado").value,
       },
       deptos: collectDeptos(),
     };
