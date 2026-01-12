@@ -7,6 +7,33 @@ const emailError = document.getElementById('email-error');
 const phoneError = document.getElementById('phone-error');
 const strengthError = document.getElementById('password-strength-error');
 const matchError = document.getElementById('password-match-error');
+const backBtn = document.getElementById('backBtn');
+
+const backRoutes = {
+  admin: '../admin/home.html',
+  conserjeria: '../conserjeria/home.html',
+  residente: '../residente/home.html'
+};
+
+if (backBtn) {
+  backBtn.addEventListener('click', () => {
+    const params = new URLSearchParams(window.location.search);
+    const from = params.get('from');
+    const target = backRoutes[from];
+
+    if (target) {
+      window.location.href = target;
+      return;
+    }
+
+    if (document.referrer) {
+      window.history.back();
+      return;
+    }
+
+    window.location.href = '../../index.html';
+  });
+}
 
 document.getElementById('saveBtn').onclick = () => {
   let valid = true;
