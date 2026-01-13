@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="../../assets/css/base.css">
-  <link rel="stylesheet" href="../../assets/css/perfil.css">
+  <link rel="stylesheet" href="../../assets/css/perfil.css?v=2">
 </head>
 <body>
 
@@ -19,6 +19,7 @@
   <section class="profile-card">
 
     <h1>Mi Perfil</h1>
+    <div id="profile-message" class="status-message hidden" role="status" aria-live="polite"></div>
 
     <!-- INFO BÁSICA -->
     <div class="info-box">
@@ -79,7 +80,7 @@
     <!-- BOTONES -->
     <div class="actions">
       <button class="btn-secondary" id="backBtn" type="button">Volver</button>
-      <button class="btn-primary" id="saveBtn">Guardar cambios</button>
+      <button class="btn-primary" id="saveBtn" type="button">Guardar cambios</button>
     </div>
 
   </section>

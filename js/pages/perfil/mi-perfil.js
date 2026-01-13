@@ -1,5 +1,6 @@
 const email = document.getElementById('email');
 const phone = document.getElementById('telefono');
+const currentPassword = document.getElementById('currentPassword');
 const newPassword = document.getElementById('newPassword');
 const confirmPassword = document.getElementById('confirmPassword');
 
@@ -8,6 +9,7 @@ const phoneError = document.getElementById('phone-error');
 const strengthError = document.getElementById('password-strength-error');
 const matchError = document.getElementById('password-match-error');
 const backBtn = document.getElementById('backBtn');
+const messageBox = document.getElementById('profile-message');
 
 const backRoutes = {
   admin: '../admin/home.html',
@@ -51,6 +53,29 @@ async function fetchJson(path, options = {}) {
   const data = await response.json().catch(() => ({}));
   if (!response.ok) {
     return null;
+  }
+
+  return data;
+}
+
+async function updateProfile(idUsuario, payload) {
+  const token = getToken();
+  if (!token) {
+    throw new Error('Sesion expirada');
+  }
+
+  const response = await fetch(`${API_URL}/admin/usuarios/${idUsuario}/perfil`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  });
+
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    throw new Error(data.error || data.message || 'No se pudo actualizar el perfil');
   }
 
   return data;
@@ -117,6 +142,16 @@ function resolveBackRoute() {
   return null;
 }
 
+function showMessage(text, type) {
+  if (!messageBox) return;
+  messageBox.textContent = text;
+  messageBox.classList.remove('hidden');
+  messageBox.classList.remove('success');
+  messageBox.classList.remove('error');
+  if (type) messageBox.classList.add(type);
+  messageBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
 if (backBtn) {
   backBtn.addEventListener('click', () => {
     const target = resolveBackRoute();
@@ -138,8 +173,9 @@ if (backBtn) {
 prefillProfile();
 
 const saveBtn = document.getElementById('saveBtn');
-if (saveBtn) saveBtn.onclick = () => {
+if (saveBtn) saveBtn.onclick = async () => {
   let valid = true;
+  showMessage('Validando datos...', '');
 
   // Email
   if (!/^\S+@\S+\.\S+$/.test(email.value)) {
@@ -147,7 +183,7 @@ if (saveBtn) saveBtn.onclick = () => {
     valid = false;
   } else emailError.classList.add('hidden');
 
-  // Teléfono
+  // Telefono
   if (!/^\+\d{11,15}$/.test(phone.value)) {
     phoneError.classList.remove('hidden');
     valid = false;
@@ -155,6 +191,11 @@ if (saveBtn) saveBtn.onclick = () => {
 
   // Password
   if (newPassword.value || confirmPassword.value) {
+    if (currentPassword && newPassword.value && currentPassword.value === newPassword.value) {
+      strengthError.textContent = 'La nueva contrasena debe ser distinta a la actual';
+      strengthError.classList.remove('hidden');
+      valid = false;
+    }
     if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}/.test(newPassword.value)) {
       strengthError.classList.remove('hidden');
       valid = false;
@@ -166,8 +207,36 @@ if (saveBtn) saveBtn.onclick = () => {
     } else matchError.classList.add('hidden');
   }
 
-  if (!valid) return;
+  if (!valid) {
+    showMessage('Revisa los campos marcados.', 'error');
+    return;
+  }
 
-  // 🔜 FUTURO: fetch('/api/user/profile')
-  alert('Cambios guardados (mock)');
+  const user = getUser();
+  const idUsuario = user && user.id ? user.id : null;
+  if (!idUsuario) {
+    showMessage('No se pudo identificar al usuario.', 'error');
+    return;
+  }
+
+  const payload = {
+    email: email.value.trim(),
+    telefono: phone.value.trim()
+  };
+
+  if (newPassword.value || confirmPassword.value) {
+    payload.password_nueva = newPassword.value;
+    payload.password_confirmacion = confirmPassword.value;
+  }
+
+  try {
+    await updateProfile(idUsuario, payload);
+    if (user && payload.email) {
+      user.email = payload.email;
+      localStorage.setItem('user', JSON.stringify(user));
+    }
+    showMessage('Perfil actualizado correctamente.', 'success');
+  } catch (err) {
+    showMessage(err.message || 'No se pudo actualizar el perfil.', 'error');
+  }
 };
