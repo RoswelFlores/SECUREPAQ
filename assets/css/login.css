@@ -90,13 +90,21 @@ input:focus {
   cursor: pointer;
 }
 
-.alert.error {
-  background: #FEE2E2;
-  color: var(--error);
+.alert {
   padding: 12px;
   border-radius: 10px;
   margin-bottom: 16px;
   font-size: .85rem;
+}
+
+.alert.error {
+  background: #FEE2E2;
+  color: var(--error);
+}
+
+.alert.success {
+  background: #DCFCE7;
+  color: #166534;
 }
 
 .recovery {
