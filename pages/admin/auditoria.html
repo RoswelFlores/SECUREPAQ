@@ -20,7 +20,7 @@
   </div>
 
   <div class="header-right">
-    <a href="../../index.html" class="btn btn-back" aria-label="Cerrar sesion">Cerrar sesion</a>
+    <a href="../../index.html" class="btn btn-back" aria-label="Cerrar sesion" data-logout>Cerrar sesion</a>
     <a href="home.html" class="btn btn-back" aria-label="Volver al panel">Volver</a>
     <div class="user-info">
       <strong>Maria Lopez</strong>
@@ -64,5 +64,10 @@
 </footer>
 
 <script src="../../js/pages/admin/auditoria.js"></script>
+
+<script src="../../js/guard/guard.global.js"></script>
+<script>
+  protectRoute(['ADMIN']);
+</script>
 </body>
 </html>

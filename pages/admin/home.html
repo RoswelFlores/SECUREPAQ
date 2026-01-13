@@ -22,7 +22,7 @@
 
   <div class="header-right">
     <a href="../perfil/mi-perfil.html?from=admin" class="btn btn-back" aria-label="Ir a mi perfil">Mi perfil</a>
-    <a href="../../index.html" class="btn btn-back" aria-label="Cerrar sesion">Cerrar sesion</a>
+    <a href="../../index.html" class="btn btn-back" aria-label="Cerrar sesion" data-logout>Cerrar sesion</a>
     <div class="user-info">
       <strong>Maria Lopez</strong>
       <span>Administrador</span>
@@ -99,5 +99,10 @@
 </footer>
 
 <script src="../../js/pages/admin/admin.js"></script>
+
+<script src="../../js/guard/guard.global.js"></script>
+<script>
+  protectRoute(['ADMIN']);
+</script>
 </body>
 </html>

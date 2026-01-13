@@ -21,7 +21,7 @@
 
   <div class="header-right">
     <a href="../perfil/mi-perfil.html?from=residente" class="btn btn-muted" aria-label="Ir a mi perfil">Mi perfil</a>
-    <a href="../../index.html" class="btn btn-muted" aria-label="Cerrar sesion">Cerrar sesion</a>
+    <a href="../../index.html" class="btn btn-muted" aria-label="Cerrar sesion" data-logout>Cerrar sesion</a>
     <div class="user-info">
       <strong>Juan Perez</strong>
       <span>Depto. 304 | Torre A</span>
@@ -62,5 +62,10 @@
 </footer>
 
 <script src="../../js/pages/residente/residente.js?v=1"></script>
+
+<script src="../../js/guard/guard.global.js"></script>
+<script>
+  protectRoute(['RESIDENTE']);
+</script>
 </body>
 </html>
