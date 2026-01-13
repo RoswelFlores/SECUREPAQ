@@ -15,11 +15,33 @@ const backRoutes = {
   residente: '../residente/home.html'
 };
 
+function getUser() {
+  const raw = localStorage.getItem('user');
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw);
+  } catch (err) {
+    return null;
+  }
+}
+
+function resolveBackRoute() {
+  const params = new URLSearchParams(window.location.search);
+  const from = params.get('from');
+  if (from && backRoutes[from]) return backRoutes[from];
+
+  const user = getUser();
+  const roles = (user && Array.isArray(user.roles)) ? user.roles : [];
+  if (roles.includes('ADMIN')) return backRoutes.admin;
+  if (roles.includes('CONSERJERIA')) return backRoutes.conserjeria;
+  if (roles.includes('RESIDENTE')) return backRoutes.residente;
+
+  return null;
+}
+
 if (backBtn) {
   backBtn.addEventListener('click', () => {
-    const params = new URLSearchParams(window.location.search);
-    const from = params.get('from');
-    const target = backRoutes[from];
+    const target = resolveBackRoute();
 
     if (target) {
       window.location.href = target;
@@ -35,7 +57,8 @@ if (backBtn) {
   });
 }
 
-document.getElementById('saveBtn').onclick = () => {
+const saveBtn = document.getElementById('saveBtn');
+if (saveBtn) saveBtn.onclick = () => {
   let valid = true;
 
   // Email
