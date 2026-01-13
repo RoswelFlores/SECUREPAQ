@@ -64,6 +64,10 @@ document.getElementById('show-recovery').onclick = () => {
 
 document.getElementById('back-login').onclick = () => {
   recovery.classList.add('hidden');
+  if (errorBox) {
+    errorBox.classList.add('hidden');
+    errorBox.style.display = 'none';
+  }
 };
 
 recoverySubmit.addEventListener('click', async () => {
