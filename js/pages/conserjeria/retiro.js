@@ -86,13 +86,18 @@
     const courier = displayValue(detalle.courier, '-');
     const residente = displayValue(detalle.residente, '-');
     const departamento = displayValue(detalle.departamento, '-');
-    const estado = 'Pendiente';
+    const estado = displayValue(detalle.estado, 'PENDIENTE');
+    const recepcion = detalle.fecha_recepcion ? new Date(detalle.fecha_recepcion) : null;
+    const recepcionText = recepcion && !Number.isNaN(recepcion.getTime())
+      ? recepcion.toLocaleString('es-CL')
+      : '-';
 
     infoGrid.innerHTML = `
       <div><strong>Tracking:</strong> ${tracking}</div>
       <div><strong>Courier:</strong> ${courier}</div>
       <div><strong>Residente:</strong> ${residente}</div>
       <div><strong>Depto:</strong> ${departamento}</div>
+      <div><strong>Recepcion:</strong> ${recepcionText}</div>
       <div><strong>Estado:</strong> ${estado}</div>
     `;
   }

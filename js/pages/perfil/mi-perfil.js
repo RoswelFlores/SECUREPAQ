@@ -15,6 +15,8 @@ const backRoutes = {
   residente: '../residente/home.html'
 };
 
+const API_URL = 'http://localhost:3000';
+
 function getUser() {
   const raw = localStorage.getItem('user');
   if (!raw) return null;
@@ -23,6 +25,82 @@ function getUser() {
   } catch (err) {
     return null;
   }
+}
+
+function getToken() {
+  return localStorage.getItem('token');
+}
+
+async function fetchJson(path, options = {}) {
+  const token = getToken();
+  if (!token) {
+    return null;
+  }
+
+  const headers = Object.assign({}, options.headers || {});
+  headers.Authorization = `Bearer ${token}`;
+  if (options.body && !headers['Content-Type']) {
+    headers['Content-Type'] = 'application/json';
+  }
+
+  const response = await fetch(`${API_URL}${path}`, {
+    ...options,
+    headers
+  });
+
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    return null;
+  }
+
+  return data;
+}
+
+function setInfoBox(nombre, rol) {
+  const box = document.querySelector('.info-box');
+  if (!box) return;
+  const paragraphs = box.querySelectorAll('p');
+  if (paragraphs[0]) {
+    paragraphs[0].innerHTML = `<strong>Usuario:</strong> ${nombre || 'Usuario'}`;
+  }
+  if (paragraphs[1]) {
+    paragraphs[1].innerHTML = `<strong>Rol:</strong> ${rol || 'Rol'}`;
+  }
+}
+
+async function prefillProfile() {
+  const user = getUser();
+  if (!user) return;
+
+  if (user.email && email) {
+    email.value = user.email;
+  }
+
+  let telefono = '';
+  let nombre = '';
+  let rol = '';
+
+  if (user.id) {
+    const resumen = await fetchJson(`/admin/usuarios/${user.id}/resumen`);
+    if (resumen) {
+      telefono = resumen.telefono || '';
+      nombre = resumen.usuario || '';
+      rol = resumen.rol || '';
+      if (resumen.correo && email) {
+        email.value = resumen.correo;
+      }
+    }
+  }
+
+  if (!rol && Array.isArray(user.roles)) {
+    rol = user.roles[0] || '';
+  }
+
+  if (phone) {
+    phone.value = telefono || phone.value || '';
+  }
+
+  setInfoBox(nombre || user.email, rol);
 }
 
 function resolveBackRoute() {
@@ -56,6 +134,8 @@ if (backBtn) {
     window.location.href = '../../index.html';
   });
 }
+
+prefillProfile();
 
 const saveBtn = document.getElementById('saveBtn');
 if (saveBtn) saveBtn.onclick = () => {
