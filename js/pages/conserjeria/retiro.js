@@ -151,9 +151,4 @@
     confirmarBtn.addEventListener('click', confirmarRetiro);
   }
 
-  const params = new URLSearchParams(window.location.search);
-  const presetOtp = params.get('otp');
-  if (presetOtp && otpInput) {
-    otpInput.value = presetOtp;
-  }
 })();

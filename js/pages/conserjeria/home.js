@@ -135,7 +135,7 @@
       const statusText = displayValue(item.estado, '-');
       const hasOtp = /[0-9]/.test(String(item.otp || ''));
       const actionButton = isPending && hasOtp
-        ? `<a href="retiro.html?otp=${encodeURIComponent(item.otp)}" class="btn-secondary">Retiro</a>`
+        ? '<a href="retiro.html" class="btn-secondary">Retiro</a>'
         : '';
 
       tr.innerHTML = `

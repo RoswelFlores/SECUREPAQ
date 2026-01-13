@@ -2,6 +2,7 @@
   const API_URL = 'http://localhost:3000';
 
   const guardar = document.getElementById('guardar');
+  const cancelar = document.querySelector('.actions .btn-secondary');
   const confirmacion = document.getElementById('confirmacion');
   const descripcion = document.getElementById('descripcion');
   const count = document.getElementById('count');
@@ -292,4 +293,11 @@
   updateRecepcionFields();
   cargarResidentes();
   cargarCouriers();
+
+  if (cancelar) {
+    cancelar.addEventListener('click', (event) => {
+      event.preventDefault();
+      window.location.href = 'home.html';
+    });
+  }
 })();
