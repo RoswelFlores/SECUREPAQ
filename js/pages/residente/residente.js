@@ -7,6 +7,12 @@
   const pendientesEmpty = document.getElementById('pendientesEmpty');
   const historialEmpty = document.getElementById('historialEmpty');
 
+  const otpModalOverlay = document.getElementById('otpModalOverlay');
+  const otpModalTitle = document.getElementById('otpModalTitle');
+  const otpModalMessage = document.getElementById('otpModalMessage');
+  const otpModalClose = document.getElementById('otpModalClose');
+  const otpModalOk = document.getElementById('otpModalOk');
+
   const headerName = document.querySelector('.user-info strong');
   const headerRole = document.querySelector('.user-info span');
 
@@ -104,6 +110,28 @@
     }
   }
 
+  function openOtpModal(text, type) {
+    if (!otpModalOverlay || !otpModalMessage) return;
+    otpModalMessage.textContent = text;
+    otpModalMessage.classList.remove('hidden');
+    otpModalMessage.classList.remove('error');
+    if (type === 'error') otpModalMessage.classList.add('error');
+    if (otpModalTitle) {
+      otpModalTitle.textContent = type === 'error' ? 'Error' : 'Success';
+    }
+    otpModalOverlay.classList.remove('hidden');
+    otpModalOverlay.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeOtpModal() {
+    if (!otpModalOverlay || !otpModalMessage) return;
+    otpModalOverlay.classList.add('hidden');
+    otpModalOverlay.setAttribute('aria-hidden', 'true');
+    otpModalMessage.textContent = '';
+    otpModalMessage.classList.add('hidden');
+    otpModalMessage.classList.remove('error');
+  }
+
   function renderPendientes(pendientes) {
     if (!pendientesList || !pendientesEmpty) return;
     pendientesList.innerHTML = '';
@@ -160,10 +188,10 @@
             method: 'POST',
             body: JSON.stringify({ id_encomienda: id })
           });
-          alert('OTP regenerado. Revisa tu correo.');
+          openOtpModal('OTP regenerado. Revisa tu correo.', 'success');
           await loadPendientes();
         } catch (err) {
-          alert(err.message || 'No se pudo regenerar el OTP');
+          openOtpModal(err.message || 'No se pudo regenerar el OTP', 'error');
         }
       });
     });
@@ -253,6 +281,18 @@
     } catch (err) {
       status.textContent = err.message || 'No se pudieron cargar los datos.';
     }
+  }
+
+  if (otpModalClose) {
+    otpModalClose.addEventListener('click', closeOtpModal);
+  }
+  if (otpModalOk) {
+    otpModalOk.addEventListener('click', closeOtpModal);
+  }
+  if (otpModalOverlay) {
+    otpModalOverlay.addEventListener('click', (event) => {
+      if (event.target === otpModalOverlay) closeOtpModal();
+    });
   }
 
   if (document.readyState === 'loading') {

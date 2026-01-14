@@ -57,6 +57,22 @@
 
 </main>
 
+<!-- MODAL (OTP) -->
+<div id="otpModalOverlay" class="modal-overlay hidden" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="otpModalTitle">
+    <div class="modal-head">
+      <h2 id="otpModalTitle" class="modal-title">Mensaje</h2>
+      <button id="otpModalClose" class="icon-btn" aria-label="Cerrar">x</button>
+    </div>
+    <div class="modal-body">
+      <div id="otpModalMessage" class="modal-message hidden" role="status" aria-live="polite"></div>
+    </div>
+    <div class="modal-foot">
+      <button type="button" id="otpModalOk" class="btn">Cerrar</button>
+    </div>
+  </div>
+</div>
+
 <footer class="app-footer">
   &copy; 2026 SECUREPAQ. Todos los derechos reservados.
 </footer>
