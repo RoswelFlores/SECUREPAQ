@@ -1,88 +1,66 @@
 (() => {
-  console.log("admin/auditoria.js cargado");
+  const API_URL = "http://localhost:3000";
 
   const tbody = document.getElementById("auditoriaTbody");
   const empty = document.getElementById("auditoriaEmpty");
 
-  const registros = [
-    {
-      fecha: "27/12/2025 15:45",
-      usuario: "Carlos Ramirez",
-      rol: "Conserjeria",
-      accion: "RETIRO",
-      detalle: "Retiro encomienda #TRK-458921 - Juan Perez (304-A)",
-    },
-    {
-      fecha: "27/12/2025 14:30",
-      usuario: "Carlos Ramirez",
-      rol: "Conserjeria",
-      accion: "REGISTRO",
-      detalle: "Registro encomienda FedEx - Juan Perez (304-A)",
-    },
-    {
-      fecha: "27/12/2025 12:15",
-      usuario: "Juan Perez",
-      rol: "Residente",
-      accion: "REGENERAR OTP",
-      detalle: "Regeneracion OTP encomienda #TRK-458920",
-    },
-    {
-      fecha: "26/12/2025 18:30",
-      usuario: "Carlos Ramirez",
-      rol: "Conserjeria",
-      accion: "RETIRO",
-      detalle: "Retiro encomienda #TRK-458919 - Maria Gonzalez (205-B)",
-    },
-    {
-      fecha: "26/12/2025 14:45",
-      usuario: "Carlos Ramirez",
-      rol: "Conserjeria",
-      accion: "REGISTRO",
-      detalle: "Registro encomienda Starken - Pedro Silva (102-A)",
-    },
-    {
-      fecha: "26/12/2025 11:20",
-      usuario: "Juan Perez",
-      rol: "Residente",
-      accion: "REGENERAR OTP",
-      detalle: "Regeneracion OTP encomienda #TRK-458918",
-    },
-    {
-      fecha: "25/12/2025 17:50",
-      usuario: "Carlos Ramirez",
-      rol: "Conserjeria",
-      accion: "RETIRO",
-      detalle: "Retiro encomienda #TRK-458915 - Roberto Torres (508-B)",
-    },
-    {
-      fecha: "25/12/2025 10:30",
-      usuario: "Carlos Ramirez",
-      rol: "Conserjeria",
-      accion: "REGISTRO",
-      detalle: "Registro encomienda DHL - Ana Martinez (401-C)",
-    },
-    {
-      fecha: "24/12/2025 16:20",
-      usuario: "Maria Gonzalez",
-      rol: "Residente",
-      accion: "REGENERAR OTP",
-      detalle: "Regeneracion OTP encomienda #TRK-458912",
-    },
-    {
-      fecha: "24/12/2025 14:15",
-      usuario: "Carlos Ramirez",
-      rol: "Conserjeria",
-      accion: "RETIRO",
-      detalle: "Retiro encomienda #TRK-458910 - Laura Rojas (603-C)",
-    },
-  ];
+  const headerName = document.querySelector(".user-info strong");
+  const headerRole = document.querySelector(".user-info span");
+
+  function getToken() {
+    return localStorage.getItem("token");
+  }
+
+  function getUser() {
+    const raw = localStorage.getItem("user");
+    if (!raw) return null;
+    try {
+      return JSON.parse(raw);
+    } catch (err) {
+      return null;
+    }
+  }
+
+  async function fetchJson(path, options = {}) {
+    const token = getToken();
+    if (!token) {
+      return null;
+    }
+
+    const headers = Object.assign({}, options.headers || {});
+    headers.Authorization = `Bearer ${token}`;
+    if (options.body && !headers["Content-Type"]) {
+      headers["Content-Type"] = "application/json";
+    }
+
+    const response = await fetch(`${API_URL}${path}`, {
+      ...options,
+      headers
+    });
+
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      return null;
+    }
+
+    return data;
+  }
 
   function badge(accion) {
     const type = accion === "RETIRO" ? "retiro" : accion === "REGISTRO" ? "registro" : "otp";
     return `<span class="badge ${type}">${accion}</span>`;
   }
 
-  function renderTabla() {
+  function formatDate(value) {
+    if (!value) return "-";
+    const date = new Date(value);
+    if (!Number.isNaN(date.getTime())) {
+      return date.toLocaleString("es-CL");
+    }
+    return value;
+  }
+
+  function renderTabla(registros) {
     tbody.innerHTML = "";
 
     if (!registros.length) {
@@ -94,7 +72,7 @@
     registros.forEach((r) => {
       const tr = document.createElement("tr");
       tr.innerHTML = `
-        <td>${r.fecha}</td>
+        <td>${formatDate(r.fecha_hora)}</td>
         <td>${r.usuario}</td>
         <td>${r.rol}</td>
         <td>${badge(r.accion)}</td>
@@ -104,5 +82,29 @@
     });
   }
 
-  renderTabla();
+  async function setUserHeader() {
+    const user = getUser();
+    if (!user) return;
+    if (headerName) headerName.textContent = user.email || "Usuario";
+    if (headerRole) headerRole.textContent = "Administrador";
+
+    if (!user.id) return;
+    const resumen = await fetchJson(`/admin/usuarios/${user.id}/resumen`);
+    if (resumen) {
+      if (resumen.usuario && headerName) headerName.textContent = resumen.usuario;
+      if (resumen.rol && headerRole) headerRole.textContent = resumen.rol;
+    }
+  }
+
+  async function init() {
+    await setUserHeader();
+    const data = await fetchJson("/admin/auditoria");
+    renderTabla(Array.isArray(data) ? data : []);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
 })();

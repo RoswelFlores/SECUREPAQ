@@ -184,7 +184,7 @@ if (saveBtn) saveBtn.onclick = async () => {
   } else emailError.classList.add('hidden');
 
   // Telefono
-  if (!/^\+\d{11,15}$/.test(phone.value)) {
+  if (!/^\+56\s?9\d{8}$/.test(phone.value)) {
     phoneError.classList.remove('hidden');
     valid = false;
   } else phoneError.classList.add('hidden');
