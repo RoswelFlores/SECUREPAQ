@@ -190,6 +190,12 @@
   border-color: #fde68a;
 }
 
+.badge.default {
+  color: #374151;
+  background: #e5e7eb;
+  border-color: #d1d5db;
+}
+
 .empty {
   padding: 14px;
   color: var(--muted);

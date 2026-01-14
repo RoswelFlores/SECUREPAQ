@@ -51,8 +51,12 @@
   }
 
   function badge(accion) {
-    const type = accion === "RETIRO" ? "retiro" : accion === "REGISTRO" ? "registro" : "otp";
-    return `<span class="badge ${type}">${accion}</span>`;
+    const normalized = String(accion || "").toUpperCase();
+    let type = "default";
+    if (normalized === "REGISTRO_ENCOMIENDA") type = "registro";
+    else if (normalized === "RETIRO_ENCOMIENDA") type = "retiro";
+    else if (normalized === "REGENERAR_OTP") type = "otp";
+    return `<span class="badge ${type}">${accion || "-"}</span>`;
   }
 
   function formatDate(value) {
