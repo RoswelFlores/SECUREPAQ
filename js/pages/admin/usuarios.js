@@ -27,7 +27,14 @@
   const headerName = document.querySelector(".user-info strong");
   const headerRole = document.querySelector(".user-info span");
 
+  const pagination = document.getElementById("usuariosPagination");
+  const prevPageBtn = document.getElementById("usuariosPrev");
+  const nextPageBtn = document.getElementById("usuariosNext");
+  const pageInfo = document.getElementById("usuariosPageInfo");
+
   let usuarios = [];
+  let currentPage = 1;
+  const perPage = 10;
 
   function getToken() {
     return localStorage.getItem("token");
@@ -162,16 +169,16 @@
     `;
   }
 
-  function renderTabla() {
+  function renderTabla(rows) {
     tbody.innerHTML = "";
 
-    if (!usuarios.length) {
+    if (!rows.length) {
       empty.classList.remove("hidden");
       return;
     }
     empty.classList.add("hidden");
 
-    usuarios.forEach((u) => {
+    rows.forEach((u) => {
       const tr = document.createElement("tr");
       tr.innerHTML = `
         <td>${u.nombre || "-"}</td>
@@ -195,6 +202,22 @@
         if (action === "reset") resetPass(id);
       });
     });
+  }
+
+  function renderPage() {
+    const totalPages = Math.max(1, Math.ceil(usuarios.length / perPage));
+    if (currentPage > totalPages) currentPage = totalPages;
+    const start = (currentPage - 1) * perPage;
+    const end = start + perPage;
+    const pageRows = usuarios.slice(start, end);
+    renderTabla(pageRows);
+
+    if (pagination && pageInfo && prevPageBtn && nextPageBtn) {
+      pageInfo.textContent = `${currentPage} / ${totalPages}`;
+      prevPageBtn.disabled = currentPage <= 1;
+      nextPageBtn.disabled = currentPage >= totalPages;
+      pagination.classList.toggle("hidden", usuarios.length === 0);
+    }
   }
 
   function openModal() {
@@ -305,10 +328,11 @@
         departamento: u.departamento,
         activo: !!u.activo
       }));
-      renderTabla();
+      currentPage = 1;
+      renderPage();
     } catch (err) {
       usuarios = [];
-      renderTabla();
+      renderPage();
     }
   }
 
@@ -339,6 +363,24 @@
   });
 
   rol.addEventListener("change", syncDeptoVisibility);
+  if (prevPageBtn) {
+    prevPageBtn.addEventListener("click", () => {
+      if (currentPage > 1) {
+        currentPage -= 1;
+        renderPage();
+      }
+    });
+  }
+
+  if (nextPageBtn) {
+    nextPageBtn.addEventListener("click", () => {
+      const totalPages = Math.max(1, Math.ceil(usuarios.length / perPage));
+      if (currentPage < totalPages) {
+        currentPage += 1;
+        renderPage();
+      }
+    });
+  }
   if (rut) {
     rut.addEventListener("blur", () => {
       rut.value = formatRut(rut.value);
