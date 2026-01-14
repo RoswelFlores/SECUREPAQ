@@ -214,6 +214,7 @@
       const recepcion = formatDateTime(item.fecha_recepcion);
       const retiro = formatDateTime(item.fecha_retiro);
       const tracking = displayValue(item.tracking, '-');
+      const observacion = displayValue(item.observacion, '-');
 
       el.innerHTML = `
         <div class="card-head">
@@ -230,6 +231,9 @@
 
           <div class="label">Tracking:</div>
           <div class="value">${tracking}</div>
+
+          <div class="label">Observacion:</div>
+          <div class="value">${observacion}</div>
         </div>
       `;
       historialList.appendChild(el);
