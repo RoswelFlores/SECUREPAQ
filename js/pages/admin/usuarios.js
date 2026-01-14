@@ -35,6 +35,8 @@
   let usuarios = [];
   let currentPage = 1;
   const perPage = 10;
+  let departamentos = [];
+  let edificioNombre = "";
 
   function getToken() {
     return localStorage.getItem("token");
@@ -247,8 +249,10 @@
     deptoSection.classList.toggle("hidden", !isResidente);
 
     if (!isResidente) {
-      torre.value = "Torre A";
-      depto.value = "";
+      if (torre) {
+        torre.value = edificioNombre || "Edificio";
+      }
+      if (depto) depto.value = "";
     }
   }
 
@@ -276,12 +280,10 @@
 
     syncDeptoVisibility();
 
-    if (u.departamento && rol.value === "Residente") {
-      const match = String(u.departamento || "").match(/^(\d+)-([A-Z])$/);
-      if (match) {
-        depto.value = match[1];
-        torre.value = `Torre ${match[2]}`;
-      }
+    if (rol.value === "Residente" && depto) {
+      if (torre) torre.value = edificioNombre || "Edificio";
+      const match = departamentos.find((d) => d.numero === u.departamento);
+      depto.value = match ? String(match.id_departamento) : "";
     }
 
     openModal();
@@ -333,6 +335,49 @@
     } catch (err) {
       usuarios = [];
       renderPage();
+    }
+  }
+
+  function renderDepartamentos() {
+    if (!depto) return;
+    depto.innerHTML = "";
+    const placeholder = document.createElement("option");
+    placeholder.value = "";
+    placeholder.textContent = "Seleccionar...";
+    depto.appendChild(placeholder);
+
+    departamentos.forEach((d) => {
+      const option = document.createElement("option");
+      option.value = String(d.id_departamento);
+      option.textContent = d.numero;
+      depto.appendChild(option);
+    });
+  }
+
+  async function loadDepartamentos() {
+    try {
+      const data = await fetchJson("/admin/departamentos");
+      const lista = data && Array.isArray(data.departamentos) ? data.departamentos : [];
+      const edificio = data && data.edificio ? data.edificio : null;
+      edificioNombre = edificio && edificio.nombre ? edificio.nombre : "Edificio";
+      departamentos = lista.map((d) => ({
+        id_departamento: d.id_departamento,
+        numero: d.numero,
+        piso: d.piso
+      }));
+      renderDepartamentos();
+      if (torre) {
+        torre.innerHTML = "";
+        const option = document.createElement("option");
+        option.value = edificioNombre;
+        option.textContent = edificioNombre;
+        torre.appendChild(option);
+        torre.value = edificioNombre;
+        torre.disabled = true;
+      }
+    } catch (err) {
+      departamentos = [];
+      renderDepartamentos();
     }
   }
 
@@ -413,6 +458,14 @@
       rol: roleToApi(rol.value)
     };
 
+    if (rol.value === "Residente") {
+      data.id_departamento = depto && depto.value ? Number(depto.value) : null;
+      if (!data.id_departamento) {
+        showModalMessage("Selecciona un departamento valido.", "error");
+        return;
+      }
+    }
+
     const id = editId.value ? Number(editId.value) : null;
 
     try {
@@ -440,5 +493,5 @@
 
   syncDeptoVisibility();
   setUserHeader();
-  loadUsuarios();
+  loadDepartamentos().then(loadUsuarios);
 })();
