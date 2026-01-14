@@ -3,6 +3,10 @@
 
   const tbody = document.getElementById("auditoriaTbody");
   const empty = document.getElementById("auditoriaEmpty");
+  const pagination = document.getElementById("auditoriaPagination");
+  const prevPageBtn = document.getElementById("prevPage");
+  const nextPageBtn = document.getElementById("nextPage");
+  const pageInfo = document.getElementById("pageInfo");
 
   const headerName = document.querySelector(".user-info strong");
   const headerRole = document.querySelector(".user-info span");
@@ -82,6 +86,26 @@
     });
   }
 
+  let allRecords = [];
+  let currentPage = 1;
+  const perPage = 10;
+
+  function renderPage() {
+    const totalPages = Math.max(1, Math.ceil(allRecords.length / perPage));
+    if (currentPage > totalPages) currentPage = totalPages;
+    const start = (currentPage - 1) * perPage;
+    const end = start + perPage;
+    const pageRows = allRecords.slice(start, end);
+    renderTabla(pageRows);
+
+    if (pagination && pageInfo && prevPageBtn && nextPageBtn) {
+      pageInfo.textContent = `${currentPage} / ${totalPages}`;
+      prevPageBtn.disabled = currentPage <= 1;
+      nextPageBtn.disabled = currentPage >= totalPages;
+      pagination.classList.toggle("hidden", allRecords.length === 0);
+    }
+  }
+
   async function setUserHeader() {
     const user = getUser();
     if (!user) return;
@@ -99,7 +123,28 @@
   async function init() {
     await setUserHeader();
     const data = await fetchJson("/admin/auditoria");
-    renderTabla(Array.isArray(data) ? data : []);
+    allRecords = Array.isArray(data) ? data : [];
+    currentPage = 1;
+    renderPage();
+  }
+
+  if (prevPageBtn) {
+    prevPageBtn.addEventListener("click", () => {
+      if (currentPage > 1) {
+        currentPage -= 1;
+        renderPage();
+      }
+    });
+  }
+
+  if (nextPageBtn) {
+    nextPageBtn.addEventListener("click", () => {
+      const totalPages = Math.max(1, Math.ceil(allRecords.length / perPage));
+      if (currentPage < totalPages) {
+        currentPage += 1;
+        renderPage();
+      }
+    });
   }
 
   if (document.readyState === "loading") {
