@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <link rel="stylesheet" href="../../assets/css/base.css" />
-  <link rel="stylesheet" href="../../assets/css/admin-estructura.css?v=1" />
+  <link rel="stylesheet" href="../../assets/css/admin-estructura.css?v=2" />
 </head>
 
 <body>
@@ -35,6 +35,8 @@
       <h1 class="title">Configurar estructura</h1>
       <p class="subtitle">Define datos del edificio y todos sus departamentos en una sola pantalla.</p>
     </div>
+
+    <div id="estructuraMessage" class="status-message hidden" role="status" aria-live="polite"></div>
 
     <form id="estructuraForm" class="form">
       <!-- Edificio -->
@@ -66,12 +68,12 @@
         <div class="grid-2">
           <label class="field">
             <span class="field-label">Telefono <span class="req">*</span></span>
-            <input id="edificioTelefono" type="tel" placeholder="+56912345678" required />
+          <input id="edificioTelefono" type="tel" placeholder="+56912345678" required pattern="^\+56 ?9\d{8}$" title="Formato requerido: +56 9XXXXXXXX" />
           </label>
 
           <label class="field">
-            <span class="field-label">Email</span>
-            <input id="edificioEmail" type="email" placeholder="contacto@edificio.com" />
+             <span class="field-label">Email <span class="req">*</span></span>
+          <input id="edificioEmail" type="email" placeholder="contacto@edificio.com" required />
           </label>
         </div>
 

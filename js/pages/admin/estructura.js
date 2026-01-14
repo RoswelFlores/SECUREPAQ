@@ -5,15 +5,12 @@
   const deptosContainer = document.getElementById("deptosContainer");
   const btnAgregarDepto = document.getElementById("btnAgregarDepto");
   const btnCancelar = document.getElementById("btnCancelar");
+  const messageBox = document.getElementById("estructuraMessage");
 
   const headerName = document.querySelector(".user-info strong");
   const headerRole = document.querySelector(".user-info span");
 
-  let deptos = [
-    { numero: "101", piso: "1" },
-    { numero: "102", piso: "1" },
-    { numero: "201", piso: "2" }
-  ];
+  let deptos = [];
 
   function getToken() {
     return localStorage.getItem("token");
@@ -54,10 +51,23 @@
     return data;
   }
 
+  function showMessage(text, type) {
+    if (!messageBox) return;
+    messageBox.textContent = text;
+    messageBox.classList.remove("hidden");
+    messageBox.classList.remove("success");
+    messageBox.classList.remove("error");
+    if (type) messageBox.classList.add(type);
+    messageBox.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+
   function buildDeptoCard(index, data) {
     const card = document.createElement("div");
     card.className = "depto-card";
     card.dataset.index = index;
+    if (data.id_departamento) {
+      card.dataset.id = String(data.id_departamento);
+    }
 
     card.innerHTML = `
       <div class="depto-head">
@@ -116,8 +126,30 @@
     return cards.map((card) => {
       const numero = card.querySelector('input[name="numero"]').value.trim();
       const piso = card.querySelector('input[name="piso"]').value.trim();
-      return { numero, piso };
+      const idDepartamento = card.dataset.id ? Number(card.dataset.id) : null;
+      return {
+        id_departamento: Number.isNaN(idDepartamento) ? null : idDepartamento,
+        numero,
+        piso
+      };
     });
+  }
+
+  function validateContacto() {
+    const telefonoInput = document.getElementById("edificioTelefono");
+    const emailInput = document.getElementById("edificioEmail");
+    const phoneValue = telefonoInput ? telefonoInput.value.trim() : "";
+    const emailValue = emailInput ? emailInput.value.trim() : "";
+
+    if (telefonoInput) {
+      const okPhone = /^\+56 ?9\d{8}$/.test(phoneValue);
+      telefonoInput.setCustomValidity(okPhone ? "" : "Formato requerido: +56 9XXXXXXXX");
+    }
+
+    if (emailInput) {
+      const okEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue);
+      emailInput.setCustomValidity(okEmail ? "" : "Email invalido");
+    }
   }
 
   async function setUserHeader() {
@@ -143,6 +175,8 @@
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
+    showMessage("Validando datos...", "");
+    validateContacto();
     if (!form.reportValidity()) return;
 
     const payload = {
@@ -162,12 +196,40 @@
         method: "PUT",
         body: JSON.stringify(payload)
       });
-      alert("Estructura guardada correctamente.");
+      showMessage("Estructura guardada correctamente.", "success");
+      await loadEstructura();
     } catch (err) {
-      alert(err.message || "No se pudo guardar la estructura");
+      showMessage(err.message || "No se pudo guardar la estructura", "error");
     }
   });
 
+  async function loadEstructura() {
+    try {
+      const data = await fetchJson("/admin/estructura");
+      const edificio = data && data.edificio ? data.edificio : null;
+      const departamentos = data && Array.isArray(data.departamentos)
+        ? data.departamentos
+        : [];
+
+      if (edificio) {
+        document.getElementById("edificioNombre").value = edificio.nombre || "";
+        document.getElementById("edificioDireccion").value = edificio.direccion || "";
+        document.getElementById("edificioComuna").value = edificio.comuna || "";
+        document.getElementById("edificioCiudad").value = edificio.ciudad || "";
+      }
+
+      deptos = departamentos.map((d) => ({
+        id_departamento: d.id_departamento,
+        numero: d.numero || "",
+        piso: String(d.piso || "")
+      }));
+      renderDeptos();
+    } catch (err) {
+      renderDeptos();
+    }
+  }
+
   renderDeptos();
   setUserHeader();
+  loadEstructura();
 })();
