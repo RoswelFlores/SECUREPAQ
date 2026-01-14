@@ -102,18 +102,22 @@
     }
   }
 
-  const typeClass = (tipo) => {
-    const t = (tipo || '').toUpperCase();
-    if (t === 'LLEGADA') return 'type-arrival';
-    if (t === 'RECORDATORIO') return 'type-reminder';
-    return 'type-confirm';
-  };
+  function isRead(value) {
+    return Boolean(Number(value));
+  }
 
-  const typeText = (tipo) => {
-    const t = (tipo || '').toUpperCase();
-    if (t === 'CONFIRMACION') return 'Confirmacion';
-    return t.charAt(0) + t.slice(1).toLowerCase();
-  };
+  function setReadState(card, read) {
+    if (!card) return;
+    card.classList.toggle('is-read', read);
+    const badge = card.querySelector('.type');
+    if (badge) {
+      badge.classList.toggle('type-read', read);
+      badge.classList.toggle('type-unread', !read);
+      badge.textContent = read ? 'Leida' : 'Nueva';
+    }
+    const btn = card.querySelector('.btn-read');
+    if (btn) btn.remove();
+  }
 
   function render(items) {
     if (!status || !list || !empty) return;
@@ -130,17 +134,24 @@
       const item = document.createElement('article');
       item.className = 'notif';
 
+      const leida = isRead(n.leida);
+      item.classList.toggle('is-read', leida);
+
       item.innerHTML = `
         <div class="notif-top">
-          <div class="type ${typeClass(n.tipo)}">${typeText(n.tipo)}</div>
+          <div class="type ${leida ? 'type-read' : 'type-unread'}">${leida ? 'Leida' : 'Nueva'}</div>
           <div class="meta">${formatDateTime(n.fecha_hora)}</div>
         </div>
 
         <div class="notif-body">
-          <h3>${displayValue(n.titulo, '-')}</h3>
+          <h3>Notificacion</h3>
           <p>${displayValue(n.mensaje, '-')}</p>
-          <div class="tracking">Tracking: <span>${displayValue(n.tracking, '-')}</span></div>
         </div>
+        ${leida ? '' : `
+          <div class="notif-actions">
+            <button class="btn-read" type="button" data-id="${n.id_notificacion}">Marcar como leida</button>
+          </div>
+        `}
       `;
 
       list.appendChild(item);
@@ -160,6 +171,31 @@
     } catch (err) {
       status.textContent = err.message || 'No se pudieron cargar las notificaciones.';
     }
+  }
+
+  if (list) {
+    list.addEventListener('click', async (event) => {
+      const btn = event.target.closest('.btn-read');
+      if (!btn) return;
+      const id = Number(btn.dataset.id);
+      if (!id) return;
+
+      btn.disabled = true;
+      try {
+        await fetchJson('/residente/notificaciones/marcar-como-leida', {
+          method: 'POST',
+          body: JSON.stringify({ id_notificacion: id })
+        });
+        const card = btn.closest('.notif');
+        setReadState(card, true);
+      } catch (err) {
+        btn.disabled = false;
+        if (status) {
+          status.textContent = err.message || 'No se pudo marcar la notificacion.';
+          status.classList.remove('hidden');
+        }
+      }
+    });
   }
 
   if (document.readyState === 'loading') {
