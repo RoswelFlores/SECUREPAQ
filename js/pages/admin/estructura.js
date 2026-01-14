@@ -135,23 +135,6 @@
     });
   }
 
-  function validateContacto() {
-    const telefonoInput = document.getElementById("edificioTelefono");
-    const emailInput = document.getElementById("edificioEmail");
-    const phoneValue = telefonoInput ? telefonoInput.value.trim() : "";
-    const emailValue = emailInput ? emailInput.value.trim() : "";
-
-    if (telefonoInput) {
-      const okPhone = /^\+56 ?9\d{8}$/.test(phoneValue);
-      telefonoInput.setCustomValidity(okPhone ? "" : "Formato requerido: +56 9XXXXXXXX");
-    }
-
-    if (emailInput) {
-      const okEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue);
-      emailInput.setCustomValidity(okEmail ? "" : "Email invalido");
-    }
-  }
-
   async function setUserHeader() {
     const user = getUser();
     if (!user) return;
@@ -175,18 +158,18 @@
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    showMessage("Validando datos...", "");
-    validateContacto();
-    if (!form.reportValidity()) return;
+    if (!form.reportValidity()) {
+      showMessage("Revisa los campos requeridos.", "error");
+      return;
+    }
+    showMessage("Guardando datos...", "");
 
     const payload = {
       edificio: {
         nombre: document.getElementById("edificioNombre").value.trim(),
         direccion: document.getElementById("edificioDireccion").value.trim(),
         comuna: document.getElementById("edificioComuna").value.trim(),
-        ciudad: document.getElementById("edificioCiudad").value.trim(),
-        telefono: document.getElementById("edificioTelefono").value.trim(),
-        email: document.getElementById("edificioEmail").value.trim()
+        ciudad: document.getElementById("edificioCiudad").value.trim()
       },
       departamentos: collectDeptos()
     };
