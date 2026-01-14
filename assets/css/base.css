@@ -45,3 +45,10 @@ main {
   background: linear-gradient(180deg, #ffffff 0%, #f7f9fb 100%);
   box-shadow: 0 -6px 22px rgba(0,0,0,.06);
 }
+
+@media (max-width: 420px) {
+  .app-footer {
+    padding: 16px;
+    font-size: .8rem;
+  }
+}

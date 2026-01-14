@@ -310,3 +310,44 @@ input:focus, select:focus {
     padding: 18px;
   }
 }
+
+@media (max-width: 420px) {
+  .app-header {
+    padding: 12px 16px;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .header-left,
+  .header-right {
+    width: 100%;
+  }
+
+  .header-right {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  .user-info {
+    align-items: flex-start;
+  }
+
+  .page {
+    padding: 14px;
+  }
+
+  .content {
+    padding: 16px;
+  }
+
+  .form-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .btn,
+  .btn.btn-muted,
+  .btn.btn-outline {
+    width: 100%;
+  }
+}

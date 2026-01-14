@@ -74,3 +74,17 @@
 @media (min-width: 1024px) {
   .site-logo { height: 96px; }
 }
+
+@media (max-width: 420px) {
+  .legal-wrapper {
+    padding: 16px;
+  }
+
+  .legal-card {
+    padding: 22px;
+  }
+
+  .legal-header h1 {
+    font-size: 1.35rem;
+  }
+}

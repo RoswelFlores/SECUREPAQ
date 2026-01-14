@@ -138,3 +138,21 @@ input:focus {
 .hidden {
   display: none;
 }
+
+@media (max-width: 420px) {
+  .app-header .logo {
+    width: 120px;
+  }
+
+  .profile-wrapper {
+    padding: 20px 12px;
+  }
+
+  .profile-card {
+    padding: 20px;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+}

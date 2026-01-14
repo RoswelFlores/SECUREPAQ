@@ -209,3 +209,45 @@ textarea {
     padding: 16px;
   }
 }
+
+@media (max-width: 420px) {
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px 16px;
+    gap: 8px;
+  }
+
+  .app-header .back-link {
+    position: static;
+    transform: none;
+    margin-top: 6px;
+  }
+
+  .form-card {
+    padding: 20px;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .actions .btn-primary,
+  .actions .btn-secondary {
+    width: 100%;
+  }
+
+  .confirmacion {
+    padding: 18px;
+  }
+
+  .confirmacion .details-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .confirmacion .details-row .value {
+    text-align: left;
+  }
+}
