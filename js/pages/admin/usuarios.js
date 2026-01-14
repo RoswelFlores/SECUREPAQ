@@ -10,6 +10,12 @@
   const btnCancelar = document.getElementById("btnCancelar");
   const modalTitle = document.getElementById("modalTitle");
 
+  const resetOverlay = document.getElementById("resetModalOverlay");
+  const resetModalTitle = document.getElementById("resetModalTitle");
+  const resetModalMessage = document.getElementById("resetModalMessage");
+  const btnResetClose = document.getElementById("btnResetClose");
+  const btnResetOk = document.getElementById("btnResetOk");
+
   const form = document.getElementById("formUsuario");
   const editId = document.getElementById("editId");
   const modalMessage = document.getElementById("modalMessage");
@@ -97,6 +103,28 @@
     modalMessage.classList.remove("success");
     modalMessage.classList.remove("error");
     if (type) modalMessage.classList.add(type);
+  }
+
+  function openResetModal(text, type) {
+    if (!resetOverlay || !resetModalMessage) return;
+    resetModalMessage.textContent = text;
+    resetModalMessage.classList.remove("hidden");
+    resetModalMessage.classList.remove("success");
+    resetModalMessage.classList.remove("error");
+    if (type) resetModalMessage.classList.add(type);
+    if (resetModalTitle) {
+      resetModalTitle.textContent = type === "error" ? "Error" : "Success";
+    }
+    resetOverlay.classList.remove("hidden");
+    resetOverlay.setAttribute("aria-hidden", "false");
+  }
+
+  function closeResetModal() {
+    if (!resetOverlay || !resetModalMessage) return;
+    resetOverlay.classList.add("hidden");
+    resetOverlay.setAttribute("aria-hidden", "true");
+    resetModalMessage.textContent = "";
+    resetModalMessage.classList.add("hidden");
   }
 
   function normalizeRut(value) {
@@ -311,9 +339,9 @@
       const data = await fetchJson(`/admin/usuarios/${id}/reset-password`, {
         method: "POST"
       });
-      alert(data.message || "Password reseteada");
+      openResetModal(data.message || "Contrasena reseteada correctamente.", "success");
     } catch (err) {
-      alert(err.message || "No se pudo resetear la contrasena");
+      openResetModal(err.message || "No se pudo resetear la contrasena", "error");
     }
   }
 
@@ -406,6 +434,13 @@
   overlay.addEventListener("click", (e) => {
     if (e.target === overlay) closeModal();
   });
+  if (btnResetClose) btnResetClose.addEventListener("click", closeResetModal);
+  if (btnResetOk) btnResetOk.addEventListener("click", closeResetModal);
+  if (resetOverlay) {
+    resetOverlay.addEventListener("click", (e) => {
+      if (e.target === resetOverlay) closeResetModal();
+    });
+  }
 
   rol.addEventListener("change", syncDeptoVisibility);
   if (prevPageBtn) {
