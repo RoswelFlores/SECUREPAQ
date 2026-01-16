@@ -86,6 +86,15 @@
     return { fecha, hora };
   }
 
+  function getTimezoneOffsetMinutes(fecha, hora) {
+    const [year, month, day] = String(fecha).split('-').map(Number);
+    const [hour, minute] = String(hora).split(':').map(Number);
+    if ([year, month, day, hour, minute].some(Number.isNaN)) return null;
+    const localDate = new Date(year, month - 1, day, hour, minute, 0);
+    if (Number.isNaN(localDate.getTime())) return null;
+    return localDate.getTimezoneOffset();
+  }
+
   function updateRecepcionFields() {
     const labels = Array.from(document.querySelectorAll('label'));
     const { fecha, hora } = getFechaHora();
@@ -269,6 +278,7 @@
       }
 
       const { fecha, hora } = getFechaHora();
+      const timezoneOffset = getTimezoneOffsetMinutes(fecha, hora);
 
       try {
         await fetchJson('/encomiendas', {
@@ -281,7 +291,8 @@
             tamanio: tamanoSelect ? tamanoSelect.value : '',
             descripcion: descripcion ? descripcion.value.trim() : '',
             fecha_recepcion: fecha,
-            hora_recepcion: hora
+            hora_recepcion: hora,
+            timezone_offset: timezoneOffset
           })
         });
 
