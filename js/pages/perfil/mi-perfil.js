@@ -17,7 +17,7 @@ const backRoutes = {
   residente: '../residente/home.html'
 };
 
-const API_URL = 'http://localhost:3000';
+const API_URL = window.SECUREPAQ_API_URL;
 
 function getUser() {
   const raw = localStorage.getItem('user');

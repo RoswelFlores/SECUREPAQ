@@ -1,5 +1,5 @@
 (() => {
-  const API_URL = 'http://localhost:3000';
+  const API_URL = window.SECUREPAQ_API_URL;
 
   const otpInput = document.getElementById('otp');
   const validarBtn = document.getElementById('validar');

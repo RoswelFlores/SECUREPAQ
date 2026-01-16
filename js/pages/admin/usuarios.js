@@ -1,5 +1,5 @@
 (() => {
-  const API_URL = "http://localhost:3000";
+  const API_URL = window.SECUREPAQ_API_URL;
 
   const tbody = document.getElementById("usuariosTbody");
   const empty = document.getElementById("tablaEmpty");
