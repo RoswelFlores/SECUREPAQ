@@ -102,6 +102,7 @@
     modalMessage.classList.remove("hidden");
     modalMessage.classList.remove("success");
     modalMessage.classList.remove("error");
+    modalMessage.classList.remove("warning");
     if (type) modalMessage.classList.add(type);
   }
 
@@ -111,9 +112,12 @@
     resetModalMessage.classList.remove("hidden");
     resetModalMessage.classList.remove("success");
     resetModalMessage.classList.remove("error");
+    resetModalMessage.classList.remove("warning");
     if (type) resetModalMessage.classList.add(type);
     if (resetModalTitle) {
-      resetModalTitle.textContent = type === "error" ? "Error" : "Success";
+      if (type === "error") resetModalTitle.textContent = "Error";
+      else if (type === "warning") resetModalTitle.textContent = "Aviso";
+      else resetModalTitle.textContent = "Success";
     }
     resetOverlay.classList.remove("hidden");
     resetOverlay.setAttribute("aria-hidden", "false");
@@ -504,23 +508,28 @@
     const id = editId.value ? Number(editId.value) : null;
 
     try {
+      let result = null;
       if (id) {
-        await fetchJson(`/admin/editar-usuarios/${id}`, {
+        result = await fetchJson(`/admin/editar-usuarios/${id}`, {
           method: "PUT",
           body: JSON.stringify(data)
         });
       } else {
-        await fetchJson("/admin/usuarios", {
+        result = await fetchJson("/admin/usuarios", {
           method: "POST",
           body: JSON.stringify(data)
         });
       }
 
-      showModalMessage("Usuario guardado correctamente.", "success");
+      const warning = result && result.warning ? result.warning : "";
+      const message =
+        warning || (result && result.message) || "Usuario guardado correctamente.";
+      const type = warning ? "warning" : "success";
+      showModalMessage(message, type);
       setTimeout(() => {
         closeModal();
         loadUsuarios();
-      }, 1000);
+      }, warning ? 1800 : 1000);
     } catch (err) {
       showModalMessage(err.message || "No se pudo guardar el usuario", "error");
     }
