@@ -6,6 +6,7 @@
   const confirmacion = document.getElementById('confirmacion');
   const descripcion = document.getElementById('descripcion');
   const count = document.getElementById('count');
+  const formMessage = document.getElementById('form-message');
 
   const residenteSelect = document.getElementById('residente');
   const rutInput = document.getElementById('rut');
@@ -214,6 +215,18 @@
     return true;
   }
 
+  function showFormMessage(text) {
+    if (!formMessage) return;
+    formMessage.textContent = text;
+    formMessage.classList.remove('hidden');
+  }
+
+  function clearFormMessage() {
+    if (!formMessage) return;
+    formMessage.textContent = '';
+    formMessage.classList.add('hidden');
+  }
+
   if (descripcion && count) {
     descripcion.addEventListener('input', () => {
       count.textContent = String(descripcion.value.length);
@@ -231,6 +244,7 @@
 
   if (guardar) {
     guardar.addEventListener('click', async () => {
+      clearFormMessage();
       const checks = [
         validateRequired('residente'),
         validateRequired('courier'),
@@ -271,21 +285,28 @@
           })
         });
 
-      let residenteNombre = '';
-      if (residenteSelect && residenteSelect.selectedIndex >= 0) {
-        residenteNombre = residenteSelect.options[residenteSelect.selectedIndex].textContent || '';
-      }
+        clearFormMessage();
+        let residenteNombre = '';
+        if (residenteSelect && residenteSelect.selectedIndex >= 0) {
+          residenteNombre = residenteSelect.options[residenteSelect.selectedIndex].textContent || '';
+        }
 
-      setConfirmValues({
-        tracking: trackingInput ? trackingInput.value.trim() : '',
-        residente: residenteNombre,
-        courier: courierSelect ? courierSelect.value : '',
-        tipo: tipoSelect ? tipoSelect.value : ''
-      });
+        setConfirmValues({
+          tracking: trackingInput ? trackingInput.value.trim() : '',
+          residente: residenteNombre,
+          courier: courierSelect ? courierSelect.value : '',
+          tipo: tipoSelect ? tipoSelect.value : ''
+        });
 
         if (confirmacion) confirmacion.classList.remove('hidden');
       } catch (err) {
-        alert(err.message || 'No se pudo registrar la encomienda');
+        const rawMessage = err && err.message ? err.message : '';
+        const message = rawMessage.toLowerCase();
+        if (message.includes('duplicate') || message.includes('duplicado')) {
+          showFormMessage('El tracking ya esta registrado. Usa uno diferente.');
+          return;
+        }
+        showFormMessage(rawMessage || 'No se pudo registrar la encomienda');
       }
     });
   }
