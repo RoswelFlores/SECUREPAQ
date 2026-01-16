@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>SECUREPAQ | Residente</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="../../assets/css/base.css">
+  <link rel="stylesheet" href="../../assets/css/residente.css?v=1">
+</head>
+<body>
+
+<header class="app-header">
+  <div class="header-left">
+    <img src="../../assets/images/logo_securepaq.png" class="logo" alt="SECUREPAQ">
+    <div class="module-row">
+      <span class="module">Residente</span>
+      <a href="notificaciones.html" id="btn-notif" class="btn">Notificaciones</a>
+    </div>
+  </div>
+
+  <div class="header-right">
+    <a href="../perfil/mi-perfil.html?from=residente" class="btn btn-muted" aria-label="Ir a mi perfil">Mi perfil</a>
+    <a href="../../index.html" class="btn btn-muted" aria-label="Cerrar sesion" data-logout>Cerrar sesion</a>
+    <div class="user-info">
+      <strong>Juan Perez</strong>
+      <span>Depto. 304 | Torre A</span>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+
+  <section class="tabs">
+    <button class="tab active" data-tab="pendientes">Pendientes</button>
+    <button class="tab" data-tab="historial">Historial</button>
+  </section>
+
+  <section class="content">
+    <div id="pendientes" class="tab-panel active">
+      <!-- fallback visible si JS no corre -->
+      <div class="empty" id="jsStatus">Cargando datos...</div>
+
+      <div id="pendientesList" class="cards"></div>
+      <div id="pendientesEmpty" class="empty hidden">
+        No tienes encomiendas pendientes por retirar.
+      </div>
+    </div>
+
+    <div id="historial" class="tab-panel">
+      <div id="historialList" class="cards"></div>
+      <div id="historialEmpty" class="empty hidden">
+        No tienes retiros registrados.
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- MODAL (OTP) -->
+<div id="otpModalOverlay" class="modal-overlay hidden" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="otpModalTitle">
+    <div class="modal-head">
+      <h2 id="otpModalTitle" class="modal-title">Mensaje</h2>
+      <button id="otpModalClose" class="icon-btn" aria-label="Cerrar">x</button>
+    </div>
+    <div class="modal-body">
+      <div id="otpModalMessage" class="modal-message hidden" role="status" aria-live="polite"></div>
+    </div>
+    <div class="modal-foot">
+      <button type="button" id="otpModalOk" class="btn">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<footer class="app-footer">
+  &copy; 2026 SECUREPAQ. Todos los derechos reservados.
+</footer>
+
+<script src="../../js/config/api.js"></script>
+<script src="../../js/pages/residente/residente.js?v=1"></script>
+
+<script src="../../js/guard/guard.global.js"></script>
+<script>
+  protectRoute(['RESIDENTE']);
+</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+:root {
+  --primary: #0A4DA3;
+  --secondary: #FF8A00;
+  --bg: #F4F6F9;
+  --card: #FFFFFF;
+  --text: #1F2937;
+  --muted: #6B7280;
+  --border: #E5E7EB;
+  --error: #DC2626;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: Inter, Segoe UI, Roboto, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Footer base */
+.app-footer {
+  margin-top: 32px;
+  padding: 24px 32px;
+  text-align: center;
+  color: var(--muted);
+  font-size: .9rem;
+  font-weight: 600;
+  line-height: 1.6;
+  letter-spacing: .2px;
+  border-top: 1px solid var(--border);
+  background: linear-gradient(180deg, #ffffff 0%, #f7f9fb 100%);
+  box-shadow: 0 -6px 22px rgba(0,0,0,.06);
+}
+
+@media (max-width: 420px) {
+  .app-footer {
+    padding: 16px;
+    font-size: .8rem;
+  }
+}

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>SECUREPAQ | Administrador</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="../../assets/css/base.css">
+  <link rel="stylesheet" href="../../assets/css/admin.css?v=1">
+</head>
+
+<body>
+
+<header class="app-header">
+  <div class="header-left">
+    <img src="../../assets/images/logo_securepaq.png" class="logo" alt="SECUREPAQ">
+    <div class="module-row">
+      <span class="module">Administrador</span>
+      <span class="module-sub">Panel principal</span>
+    </div>
+  </div>
+
+  <div class="header-right">
+    <a href="../perfil/mi-perfil.html?from=admin" class="btn btn-back" aria-label="Ir a mi perfil">Mi perfil</a>
+    <a href="../../index.html" class="btn btn-back" aria-label="Cerrar sesion" data-logout>Cerrar sesion</a>
+    <div class="user-info">
+      <strong>Maria Lopez</strong>
+      <span>Administrador</span>
+    </div>
+  </div>
+</header>
+
+<main class="page admin-page">
+
+  <section class="content admin-content">
+    <div class="section-head">
+      <h2 class="section-title">Estado general</h2>
+      <p class="section-subtitle">Vista rapida de operacion diaria.</p>
+    </div>
+
+    <div class="kpi-grid" aria-label="KPIs esenciales">
+      <div class="kpi-card">
+        <div class="kpi-label">Pendientes</div>
+        <div class="kpi-value" id="kpiPendientes">--</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">Retiradas hoy</div>
+        <div class="kpi-value" id="kpiRetiradasHoy">--</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">Total usuarios</div>
+        <div class="kpi-value" id="kpiTotalUsuarios">--</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section-head">
+      <h2 class="section-title">Modulos administrativos</h2>
+      <p class="section-subtitle">Accesos directos para gestion del sistema.</p>
+    </div>
+
+    <div class="modules-grid">
+      <a class="module-card" href="usuarios.html" aria-label="Modulo Usuarios">
+        <div class="module-icon">US</div>
+        <div>
+          <div class="module-title">Usuarios</div>
+          <div class="module-desc">Gestion de residentes y conserjeria.</div>
+        </div>
+      </a>
+
+      <a class="module-card" href="estructura.html" aria-label="Modulo Estructura">
+        <div class="module-icon">ES</div>
+        <div>
+          <div class="module-title">Estructura</div>
+          <div class="module-desc">Gestion de edificios y su estructura.</div>
+        </div>
+      </a>
+
+      <a class="module-card" href="auditoria.html" aria-label="Modulo Auditoria">
+        <div class="module-icon">AU</div>
+        <div>
+          <div class="module-title">Auditoria</div>
+          <div class="module-desc">Registro de acciones del sistema.</div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Mensaje fallback -->
+    <div class="empty hidden" id="adminStatus">Cargando metricas...</div>
+  </section>
+
+</main>
+
+<footer class="app-footer">
+  &copy; 2026 SECUREPAQ. Todos los derechos reservados.
+</footer>
+
+<script src="../../js/config/api.js"></script>
+<script src="../../js/pages/admin/admin.js"></script>
+
+<script src="../../js/guard/guard.global.js"></script>
+<script>
+  protectRoute(['ADMIN']);
+</script>
+</body>
+</html>

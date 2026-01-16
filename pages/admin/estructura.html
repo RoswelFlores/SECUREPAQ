@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>SECUREPAQ | Estructura</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="../../assets/css/base.css" />
+  <link rel="stylesheet" href="../../assets/css/admin-estructura.css?v=2" />
+</head>
+
+<body>
+<header class="app-header">
+  <div class="header-left">
+    <img src="../../assets/images/logo_securepaq.png" class="logo" alt="SECUREPAQ">
+    <div class="module-row">
+      <span class="module">Administrador</span>
+      <span class="module-sub">Configurar estructura</span>
+    </div>
+  </div>
+
+  <div class="header-right">
+    <a href="../../index.html" class="btn btn-back" aria-label="Cerrar sesion" data-logout>Cerrar sesion</a>
+    <a href="home.html" class="btn btn-back" aria-label="Volver al panel">Volver</a>
+    <div class="user-info">
+      <strong>Maria Lopez</strong>
+      <span>Administrador</span>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+  <section class="content">
+    <div class="section-head">
+      <h1 class="title">Configurar estructura</h1>
+      <p class="subtitle">Define datos del edificio y todos sus departamentos en una sola pantalla.</p>
+    </div>
+
+    <div id="estructuraMessage" class="status-message hidden" role="status" aria-live="polite"></div>
+
+    <form id="estructuraForm" class="form">
+      <!-- Edificio -->
+      <div class="block">
+        <div class="block-title">Datos del edificio</div>
+
+        <label class="field">
+          <span class="field-label">Nombre del edificio <span class="req">*</span></span>
+          <input id="edificioNombre" type="text" placeholder="Ej: Torre A" required />
+        </label>
+
+        <label class="field">
+          <span class="field-label">Direccion <span class="req">*</span></span>
+          <input id="edificioDireccion" type="text" placeholder="Calle y numero" required />
+        </label>
+
+        <div class="grid-2">
+          <label class="field">
+            <span class="field-label">Comuna <span class="req">*</span></span>
+            <input id="edificioComuna" type="text" placeholder="Comuna" required />
+          </label>
+
+          <label class="field">
+            <span class="field-label">Ciudad <span class="req">*</span></span>
+            <input id="edificioCiudad" type="text" placeholder="Ciudad" required />
+          </label>
+        </div>
+
+      </div>
+
+      <!-- Departamentos -->
+      <div class="block">
+        <div class="block-title">Departamentos</div>
+        <div id="deptosContainer" class="deptos-container">
+          <!-- render JS -->
+        </div>
+
+        <div class="add-wrap">
+          <button type="button" id="btnAgregarDepto" class="btn btn-outline">+ Agregar departamento</button>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" id="btnCancelar" class="btn btn-muted">Cancelar</button>
+        <button type="submit" class="btn">Guardar</button>
+      </div>
+    </form>
+  </section>
+</main>
+
+<footer class="app-footer">
+  &copy; 2026 SECUREPAQ. Todos los derechos reservados.
+</footer>
+
+<script src="../../js/config/api.js"></script>
+<script src="../../js/pages/admin/estructura.js?v=2"></script>
+
+<script src="../../js/guard/guard.global.js"></script>
+<script>
+  protectRoute(['ADMIN']);
+</script>
+</body>
+</html>
