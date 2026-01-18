@@ -33,6 +33,22 @@
   gap: 12px;
 }
 
+#btn-notif {
+  position: relative;
+}
+
+#btn-notif.has-unread::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ef4444;
+  box-shadow: 0 0 0 2px #ffffff;
+}
+
 .header-right {
   display: flex;
   align-items: center;

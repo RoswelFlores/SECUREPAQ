@@ -15,6 +15,7 @@
 
   const headerName = document.querySelector('.user-info strong');
   const headerRole = document.querySelector('.user-info span');
+  const notifBtn = document.getElementById('btn-notif');
 
   function getToken() {
     return localStorage.getItem('token');
@@ -51,6 +52,10 @@
       return date.toLocaleString('es-CL');
     }
     return text;
+  }
+
+  function isRead(value) {
+    return Boolean(Number(value));
   }
 
   async function fetchJson(path, options = {}) {
@@ -250,6 +255,17 @@
     renderHistorial(Array.isArray(data) ? data : []);
   }
 
+  async function updateUnreadNotifications() {
+    if (!notifBtn) return;
+    try {
+      const data = await fetchJson('/residente/notificaciones');
+      const hasUnread = Array.isArray(data) && data.some((n) => !isRead(n.leida));
+      notifBtn.classList.toggle('has-unread', hasUnread);
+    } catch (err) {
+      notifBtn.classList.remove('has-unread');
+    }
+  }
+
   function initTabs() {
     const tabs = document.querySelectorAll('.tab');
     const panels = document.querySelectorAll('.tab-panel');
@@ -285,6 +301,8 @@
     } catch (err) {
       status.textContent = err.message || 'No se pudieron cargar los datos.';
     }
+
+    await updateUnreadNotifications();
   }
 
   if (otpModalClose) {
